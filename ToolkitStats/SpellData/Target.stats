@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stats stat_object_definition_id="e988a674-28fe-49d2-a6ce-c5c1e0141f4c">
+  <stat_objects>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="eac49654-9fa6-461c-acc9-e04b210e92ba" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Longstrider" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="3b83e8b5-66d8-48ef-843f-e7f109036ed5" />
+        <field name="AreaRadius" type="IntegerTableFieldDefinition" value="18" />
+        <field name="TargetConditions" type="StringTableFieldDefinition" value="Self();" />
+        <field name="AoEConditions" type="StringTableFieldDefinition" value="Party() and not Dead()" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="hb762c090g3eaag9bfbg613fg80bfd8dc337a" version="1" />
+        <field name="UseCosts" type="StringTableFieldDefinition" value="ActionPoint:1;" />
+        <field name="TooltipUpcastDescription" type="GuidObjectTableFieldDefinition" value="6ff1780a-855a-414c-a8bf-811251537206" />
+        <field name="SpellContainerID" type="StringTableFieldDefinition" value="Shout_BOHQOL_PartySpellController" />
+        <field name="Level" type="IntegerTableFieldDefinition" value="0" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="6b48736a-79aa-4898-9d01-1021c275a020" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_EnhancedLeap" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="99170283-5c5f-4544-8994-ab4563d865e6" />
+        <field name="SpellProperties" type="StringTableFieldDefinition" value="ApplyStatus(LONG_JUMP,100,-1);" />
+        <field name="AreaRadius" type="IntegerTableFieldDefinition" value="18" />
+        <field name="TargetConditions" type="StringTableFieldDefinition" value="Self();" />
+        <field name="AoEConditions" type="StringTableFieldDefinition" value="Party() and not Dead()" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h1fd50776g73c2g8923ga4b2g39dc174f7f03" version="1" />
+        <field name="UseCosts" type="StringTableFieldDefinition" value="ActionPoint:1;" />
+        <field name="SpellContainerID" type="StringTableFieldDefinition" value="Shout_BOHQOL_PartySpellController" />
+        <field name="Level" type="IntegerTableFieldDefinition" value="0" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="0d7d7c7b-f332-45ec-85e3-aeee2609a956" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_RemovePartyBuff" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="3b83e8b5-66d8-48ef-843f-e7f109036ed5" />
+        <field name="SpellProperties" type="StringTableFieldDefinition" value="RemoveStatus(FEATHER_FALL);RemoveStatus(LONGSTRIDER);RemoveStatus(LONG_JUMP);" />
+        <field name="AreaRadius" type="IntegerTableFieldDefinition" value="18" />
+        <field name="TargetConditions" type="StringTableFieldDefinition" value="Self();" />
+        <field name="AoEConditions" type="StringTableFieldDefinition" value="Party() and not Dead()" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="hf7a3b3f3ga8b9gce13gd42cg164e838b25d5" version="1" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="h920b645cg711cgbb4fg746fg207dabe5901f" version="1" />
+        <field name="TooltipStatusApply" type="StringTableFieldDefinition" value="RemoveStatus(FEATHER_FALL);&#xD;&#xA;RemoveStatus(LONGSTRIDER);&#xD;&#xA;RemoveStatus(LONG_JUMP);" />
+        <field name="TooltipUpcastDescription" type="GuidObjectTableFieldDefinition" value="6ff1780a-855a-414c-a8bf-811251537206" />
+        <field name="UseCosts" type="StringTableFieldDefinition" value="ActionPoint:1;" />
+        <field name="SpellContainerID" type="StringTableFieldDefinition" value="Shout_BOHQOL_PartySpellController" />
+        <field name="Level" type="IntegerTableFieldDefinition" value="0" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Enchantment_Bane" />
+      </fields>
+    </stat_object>
+  </stat_objects>
+</stats>

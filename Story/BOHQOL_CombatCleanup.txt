@@ -1,0 +1,69 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// PARTY QOL - COMBAT CLEANUP
+//
+// Exploration versions of the Party QoL buffs are indefinite.
+// When a player character enters combat, any active QoL buff
+// is replaced with a 60-second / 10-turn version.
+//
+// This approximates the player pre-casting these exploration
+// buffs immediately before combat without consuming a spell
+// slot or action at combat start.
+//
+// NOTE:
+// BOHQOL intentionally does not distinguish between statuses
+// applied by the BOHQOL spells and the same statuses applied
+// from another source.
+// ============================================================
+
+
+// ============================================================
+// LONGSTRIDER
+// ============================================================
+
+IF
+EnteredCombat((CHARACTER)_Player, _CombatGuid)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "LONGSTRIDER", 1)
+THEN
+RemoveStatus(_Player, "LONGSTRIDER");
+ApplyStatus(_Player, "LONGSTRIDER", 60.0, 1);
+
+
+// ============================================================
+// ENHANCED LEAP
+// ============================================================
+
+IF
+EnteredCombat((CHARACTER)_Player, _CombatGuid)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "LONG_JUMP", 1)
+THEN
+RemoveStatus(_Player, "LONG_JUMP");
+ApplyStatus(_Player, "LONG_JUMP", 60.0, 1);
+
+
+// ============================================================
+// FEATHER FALL
+// ============================================================
+
+IF
+EnteredCombat((CHARACTER)_Player, _CombatGuid)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "FEATHER_FALL", 1)
+THEN
+RemoveStatus(_Player, "FEATHER_FALL");
+ApplyStatus(_Player, "FEATHER_FALL", 60.0, 1);
+EXITSECTION
+
+ENDEXITSECTION

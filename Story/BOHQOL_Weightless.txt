@@ -1,0 +1,670 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// WEIGHTLESS HANDLING
+//
+// Items inside the BOHQOL Bag hierarchy receive
+// BOHQOL_TestWeightless.
+//
+// Weight restoration is scoped through
+// DB_BOHQOL_WeightlessExitPending.
+//
+// An item enters that DB only after it is removed from a known
+// BOHQOL container. This avoids querying HasPassive against
+// every unrelated AddedTo event in the world.
+// ============================================================
+
+
+// ============================================================
+// BAG ROOT
+// ============================================================
+
+IF
+AddedTo(_Item, _Bag, _AddType)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Bag, _AddType)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+
+
+// ============================================================
+// EQUIPMENT INTERMEDIATE CONTAINER
+//
+// Equipment is a managed BOHQOL hierarchy node even though it is
+// not a normal sorting destination. Manual placement directly into
+// Equipment must therefore receive the same Weightless behavior.
+// ============================================================
+
+IF
+AddedTo(_Item, _Equipment, _AddType)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Equipment, _AddType)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// WEAPONS
+// ============================================================
+
+IF
+AddedTo(_Item, _Weapons, _AddType)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Weapons, _AddType)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// ARMOR
+// ============================================================
+
+IF
+AddedTo(_Item, _Armor, _AddType)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Armor, _AddType)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// ACCESSORIES
+// ============================================================
+
+IF
+AddedTo(_Item, _Accessories, _AddType)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Accessories, _AddType)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// CONSUMABLES
+// ============================================================
+
+IF
+AddedTo(_Item, _Consumables, _AddType)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Consumables, _AddType)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// POTIONS / COATINGS
+// ============================================================
+
+IF
+AddedTo(_Item, _Potions, _AddType)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Potions, _AddType)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// SCROLLS
+// ============================================================
+
+IF
+AddedTo(_Item, _Scrolls, _AddType)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Scrolls, _AddType)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// ARROWS
+// ============================================================
+
+IF
+AddedTo(_Item, _Arrows, _AddType)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Arrows, _AddType)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// THROWABLES
+// ============================================================
+
+IF
+AddedTo(_Item, _Throwables, _AddType)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Throwables, _AddType)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// ALCHEMY
+// ============================================================
+
+IF
+AddedTo(_Item, _Alchemy, _AddType)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Alchemy, _AddType)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// UNREAD BOOKS
+// ============================================================
+
+IF
+AddedTo(_Item, _UnreadBooks, _AddType)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _UnreadBooks, _AddType)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// READ BOOKS
+// ============================================================
+
+IF
+AddedTo(_Item, _ReadBooks, _AddType)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _ReadBooks, _AddType)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// KEY RING
+// ============================================================
+
+IF
+AddedTo(_Item, _KeyRing, _AddType)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _KeyRing, _AddType)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// EXISTING KEY RING CONTENTS
+// ============================================================
+
+IF
+EntityEvent(_Item, "BOHQOL_WeightlessKey_Item")
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+// ============================================================
+// QUEST & IMPORTANT ITEMS
+// ============================================================
+
+IF
+AddedTo(_Item, _QuestItems, _AddType)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _QuestItems, _AddType)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// EXISTING QUEST & IMPORTANT ITEMS CONTENTS
+// ============================================================
+
+IF
+EntityEvent(_Item, "BOHQOL_WeightlessQuest_Item")
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+// ============================================================
+// MISCELLANEOUS
+// ============================================================
+
+IF
+AddedTo(_Item, _Misc, _AddType)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+IF
+AddedTo(_Item, _Misc, _AddType)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+THEN
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// EXISTING MISCELLANEOUS CONTENTS
+// ============================================================
+
+IF
+EntityEvent(_Item, "BOHQOL_WeightlessMisc_Item")
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+// ============================================================
+// GENERIC WEIGHTLESS REPAIR
+// ============================================================
+
+IF
+EntityEvent(_Item, "BOHQOL_WeightlessRepair_Item")
+AND
+IsItem(_Item, 1)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 0)
+THEN
+AddPassive(_Item, "BOHQOL_TestWeightless");
+
+
+// ============================================================
+// BOHQOL EXIT TRACKING
+//
+// RemovedFrom is emitted when an object is removed from an
+// inventory. Only removals from cached BOHQOL containers create
+// an exit-pending fact.
+//
+// Moving between BOHQOL containers temporarily creates the fact;
+// the destination AddedTo rules above immediately clear it.
+//
+// An actual move to loose character inventory is handled by the
+// final resolver below.
+// ============================================================
+
+IF
+RemovedFrom(_Item, _Bag)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Equipment)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Weapons)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Armor)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Accessories)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Consumables)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Potions)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Scrolls)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Arrows)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Throwables)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Alchemy)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _UnreadBooks)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _ReadBooks)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _KeyRing)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _QuestItems)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+IF
+RemovedFrom(_Item, _Misc)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+THEN
+DB_BOHQOL_WeightlessExitPending(_Item);
+
+
+// ============================================================
+// EXIT -> LOOSE CHARACTER INVENTORY
+//
+// Unlike the previous implementation, this AddedTo rule joins
+// against a tiny BOHQOL-owned DB before performing any passive
+// query.
+//
+// Unrelated world AddedTo events therefore have no
+// DB_BOHQOL_WeightlessExitPending fact and stop here.
+//
+// GetDirectInventoryOwner reconfirms that the item really ended
+// up loose in the character's inventory.
+// ============================================================
+
+IF
+AddedTo(_Item, _Player, _AddType)
+AND
+DB_BOHQOL_WeightlessExitPending(_Item)
+AND
+IsCharacter(_Player, 1)
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+HasPassive(_Item, "BOHQOL_TestWeightless", 1)
+THEN
+RemovePassive(_Item, "BOHQOL_TestWeightless");
+NOT DB_BOHQOL_WeightlessExitPending(_Item);
+EXITSECTION
+
+ENDEXITSECTION

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stats stat_object_definition_id="e2a8d59b-0e34-4a7c-bf5f-db7a2bb34cde">
+  <stat_objects>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="15ad4e33-18f5-4cad-9450-629737eb0a10" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_FeatherFall" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="75424e09-ae1f-4ba3-87aa-b2678be6ea50" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="511114f5-6ea5-40c0-bfa1-63cc34fc2acd" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_EMPTY" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_EMPTY" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog;DisablePortraitIndicator" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="ca90632c-5741-4cb1-a59d-509db021819a" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_ACTIONMODE_SORT" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h4a8230ceg254bgbbdfg543fg52f1e623a05e" version="1" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="h38e11966gbe47g472dg57c7g5e76d15d0df1" version="2" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Abjuration_MagicCircle" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_ACTIONMODE" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="fe55e47e-df82-494c-b046-fd304a35a944" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_ACTIONMODE_RETRIEVE" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h4b6ba4e6g1a97gb53cg98eag432b009a3632" version="1" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="h15d1901cg0cb8gaa73g0805g91a5dbb0a937" version="2" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Enchantment_CommandApproach" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_ACTIONMODE" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="8618b3d2-b774-4ac0-a26d-d4eba95598a0" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_AUTOSORT_BagOpen" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h8de860e9g2b79g7360g49f5g5c4220d76b2c" version="1" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="hd1ecadd3g1d52g4332g5f16gf1df36584ec1" version="1" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_AUTOSORT" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Abjuration_ArcaneGate" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="cb058a67-c71d-4ed9-8cc4-367a4dd8723c" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_AUTOSORT_EnterBag" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h435d7d28gf5cfg96adg483fgac9732a9c93d" version="1" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="heab83c21gf68fg7723g2605g0c4136ee102c" version="1" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_AUTOSORT" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Divination_ArcaneEye" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="01fc16dc-43ca-48d4-930a-2d3d8242d008" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_AUTOSORT_ModeFull" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h59cfd63egb8d3gbf79g1ef5g9905d704f590" version="1" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Evocation_DancingLights" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_AUTOSORT_Mode&#xD;&#xA;" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="eb5bbf41-b865-413e-8ec8-012eb987424e" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_AUTOSORT_ModeSafe" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h5c01491cgf013g44c1ge264g6b0455e519de" version="1" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Abjuration_WardingBond" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_AUTOSORT_Mode&#xD;&#xA;" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="b2bd54d5-56a1-41f7-a17f-4eb38377f100" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_AUTOSORT_ModeDisabled" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h4f802fb7g7f60gec93gdd09ga113621bf5be" version="1" />
+        <field name="Icon" type="StringTableFieldDefinition" value="Spell_Illusion_Silence" />
+        <field name="StackId" type="StringTableFieldDefinition" value="BOHQOL_AUTOSORT_Mode&#xD;&#xA;" />
+        <field name="StatusPropertyFlags" type="EnumerationListTableFieldDefinition" value="DisableOverhead;DisableCombatlog" enumeration_type_name="StatusPropertyFlags" version="1" />
+      </fields>
+    </stat_object>
+  </stat_objects>
+</stats>

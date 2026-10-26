@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stats stat_object_definition_id="e078e210-b9ba-48e5-afe3-c5eb91ba8545">
+  <stat_objects>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="1f81cf0c-4f1d-4ee2-8ecb-db971a68bb96" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_BagOfHolding" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Legendary" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="d0e346e6-0d62-44ab-9a6f-7c5a23128ff6" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Chest_Equipment" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="c6b4b1ca-874e-4ba5-9ed1-50346d6032a3" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="fc43f27e-6971-4848-9b00-d87e4cca49aa" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Consumables" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="be09f080-b3d0-4fb0-b85e-21a92e919e9b" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="868ff0f9-c7cb-4370-9ec7-a048de29cbce" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Alchemy" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="77aeba4a-9a37-4f9f-bb63-0ea5eb92b08f" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="badf5e32-bfc2-421e-8da1-0c280e9632f9" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Chest_UnRead-Books" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="955f9128-460a-485d-89b4-cc5442daa79b" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="0f1a8d37-78c9-42aa-a5b4-64ccdda116f8" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Chest_Read-Books" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="c41e30c4-db53-42b9-8725-04cc5c58346a" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="7c587ab0-6cf6-40d1-a10d-1a405da06954" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Useful-Items" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="5fb79047-be77-4953-ac38-e36a3a79716b" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="acc8fe21-6521-4713-9f5f-6cf4b76a40ea" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Valuables" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="afc737e0-86c6-4fb3-af10-9b9588ec200a" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="24c87699-c478-436d-8180-fa6b6f7b59c0" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Miscellaneous" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="3286b2ce-718d-4e85-9928-c92c18a0fca1" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="69581c2e-da30-4583-a501-ca5cb932ae2c" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Chest_Weapons" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="deb488e6-51c2-46e6-a10f-3831be418de4" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="840195c1-488d-4651-8dc3-879e3fab4611" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Chest_Armor" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="df6b1432-8604-46ce-b66e-e0f42601b302" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="f02234a5-a929-4c51-bed3-b443857dd29e" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Chest_Accessories" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="81fe6e28-6257-4d98-83c9-3578bf78acbc" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="f80fd115-717d-4c72-bc5e-ade8a5bddef2" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Potions" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="1d05a7c1-5a79-453e-9a90-3bf90d574a19" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="358fed13-86c2-4691-adf7-aec3f31ca663" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Scrolls" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="2d1184a2-f0b6-46ab-8cf6-0379dfeba3c1" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="c8dc98de-0527-4b32-8162-988cb3ecb686" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Arrows" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="601175a3-e3bf-4d4a-acdc-1533e6f6db82" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="2a8d8f9d-fff8-4cd7-b92c-74979e24addb" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_Throwables" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="aeaf3522-054e-4e36-9ca7-9c746d26f014" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="31f04865-760c-4d0f-aa21-9edead629083" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_KeyRing" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="e8aa6476-fda1-4bb3-a573-5de2bafcf4a6" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="d92a6ae4-02bf-435c-b7b6-141d1ec49f11" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Bag_QuestItems" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="200845ed-79fb-45ad-9c82-31569d84ec8f" />
+        <field name="RootTemplate" type="RootTemplateTableFieldDefinition" value="f2948197-47d5-40e9-aa5d-656639e748fb" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="VeryRare" enumeration_type_name="Rarity" version="1" />
+        <field name="BludgeoningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="SlashingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PiercingResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="AcidResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ColdResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="FireResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ForceResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="LightningResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="NecroticResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PoisonResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="PsychicResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="RadiantResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+        <field name="ThunderResistance" type="EnumerationListTableFieldDefinition" value="Immune" enumeration_type_name="ResistanceFlags" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="e3f427d8-15e4-4464-b35c-ad0a8bda7354" />
+        <field name="Name" type="NameTableFieldDefinition" value="Quest_FOR_BrokenSpear_Head" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="bec8c982-820a-4f9a-af05-28418e2af4cc" />
+        <field name="Name" type="NameTableFieldDefinition" value="Quest_FOR_BrokenSpear_Shaft" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="570bff7d-51b1-47da-9d37-f00d754ae75b" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_FOR_SussurBark" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c236514d-90cb-4064-b741-3dcd12d17c0e" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="ab34a8fd-58a5-48ff-baea-45d60eed3828" />
+        <field name="Name" type="NameTableFieldDefinition" value="OBJ_GithyankiEgg" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="d9e28461-3feb-4e08-8055-2286afbcb68c" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="eb00c071-89b3-4e6e-b509-7732078e2bdf" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_FOR_OwlbearEgg" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="b5b7d5fb-6519-46a3-b5ef-fdf380b00220" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="e09a5793-b2dc-4aed-852d-cd95c0ae2639" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_FOR_Adamant" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c236514d-90cb-4064-b741-3dcd12d17c0e" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="62f39783-0415-45f4-bf1c-94b7f7f7b338" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_FOR_AdamantBar" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="9894d234-8355-4123-a9bd-ec1546badc49" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="de23a4d9-422f-4436-af62-22b0c2694efc" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_PUZ_MithralOre" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="4bf9ae0b-90b5-4716-b2b2-1ed6d88230ea" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="78a44bb1-4472-4a66-9bed-69a35727c2ed" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOOT_AdamantineForge_LongswordMold" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="0dfb979b-824d-4acf-a631-14fd418ff254" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="c866be14-7bb4-4349-b430-18ddfb68fd52" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOOT_AdamantineForge_MaceMold" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="0dfb979b-824d-4acf-a631-14fd418ff254" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="f28f30b4-4ec5-4000-97ce-2537136896c0" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOOT_AdamantineForge_ScaleMold" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="0dfb979b-824d-4acf-a631-14fd418ff254" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="1d629f38-5955-41ba-81a8-180b3605d7eb" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOOT_AdamantineForge_ScimitarMold" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="0dfb979b-824d-4acf-a631-14fd418ff254" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="32930a25-d6d1-41ba-a675-7ff197f68b16" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOOT_AdamantineForge_ShieldMold" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="0dfb979b-824d-4acf-a631-14fd418ff254" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="797a823f-5d01-43d8-9b99-1d4f24073bf8" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOOT_AdamantineForge_SplintMold" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="0dfb979b-824d-4acf-a631-14fd418ff254" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="55121636-4016-4c0e-b6eb-b2510b4b0461" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_MagicStaff_Part_Crystal" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="86211a6a-ebd5-4f2e-a2c1-ea3e72bb8afe" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_MagicStaff_Part_Top" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="f55d6cc7-a6f9-4187-9c88-29178383eaae" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_MagicStaff_Part_Helve" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="a8717bce-d2ee-43ac-9b0b-e17997ee6dbb" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_CRE_DawnmasterCrest" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="7185eec9-1b56-446a-aa3c-d9f6f6a35c53" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="fe4e74e5-f1f3-44d9-8ef8-848196ad6c0f" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_CRE_LathanderBloodGem" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="217511e6-4a95-41bf-bc0a-3c09873bfde4" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="dd942f3a-cf40-49c2-abd0-e524b656722c" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_CRE_MisCutCrystal" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="7185eec9-1b56-446a-aa3c-d9f6f6a35c53" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="30667e18-f58a-434f-b9f1-31974b5046c6" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_CRE_RawSunCrystal" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="b9e40305-98c3-4b8b-9c14-4e88d959424a" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="c55b2bb8-4e49-4064-85cf-3e935a567882" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_SHA_TrialGem" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="341f7a77-e93b-49f5-a2a6-dc65e66628e2" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="737f078f-f903-49f1-b990-cc1a8b3971da" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_WYR_GemlessRing" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="218390fd-a949-4e29-b8fd-362f54ca2384" />
+        <field name="Name" type="NameTableFieldDefinition" value="QUEST_WYR_RinglessGemstone" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="7745c651-2071-498a-93ef-6d520c685d59" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_BaldursMouth_ArticleBlock" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="d33ea6e8-b975-471a-b4dc-794bc4fc0034" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="7d67d173-6ff4-4578-8a91-54a52e470e84" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_BaldursMouth_FinishedBlock" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="d33ea6e8-b975-471a-b4dc-794bc4fc0034" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="ee993bf0-24c8-4f91-a26e-15a93e1fee6b" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_BaldursMouth_MasterBlock" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="d33ea6e8-b975-471a-b4dc-794bc4fc0034" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="b778acf1-a21d-4233-a634-d8fc97d38c6e" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_SteelWatchFoundry_WatcherArm" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="4df1eaa4-436c-4680-97ee-9fc2433dd850" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_SteelWatchFoundry_WatcherHarpoonCrossbowDiagram" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="f8a086d9-f58c-44d2-8031-9a76c4eaaec5" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_SteelWatchtFoundry_WatcherTargetingModule" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="a451f608-ff09-4fc7-a328-99ff05f70491" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="c02d19a8-0ef0-4ebc-b084-d9d1bf759441" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_LOW_HouseOfGrief_MemoryHerb" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="23ac90ed-3f1d-47ac-aef1-a71ad944b6a8" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="ALCH_Ingredient_Air_Passive;BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="4bbb24c2-65d2-4273-b9d3-01acf01d10d8" />
+        <field name="Name" type="NameTableFieldDefinition" value="UNI_UND_NarrativeLoot_BlingdenstoneWine" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="968dff20-bec3-442a-95ea-9b233146355b" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="b6ba1c9c-55f2-44d4-b57e-813284904307" />
+        <field name="Name" type="NameTableFieldDefinition" value="Quest_UND_Moonlantern_Broken" />
+        <field name="Using" type="BaseClassTableFieldDefinition" value="7825a50a-7b68-4307-b4d9-f5061539324b" />
+        <field name="Rarity" type="EnumerationTableFieldDefinition" value="Uncommon" enumeration_type_name="Rarity" version="1" />
+        <field name="PassivesOnEquip" type="StringTableFieldDefinition" value="BOHQOL_UsefulItem;" />
+      </fields>
+    </stat_object>
+  </stat_objects>
+</stats>

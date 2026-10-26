@@ -1,0 +1,57 @@
+treasure itemtypes "Common","Uncommon","Rare","Epic","Legendary","Divine","Unique"
+new treasuretable "TUT_Chest_Potions"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_BagOfHolding",1,0,0,0,0,0,0,0
+new treasuretable "BOHQOL_BagOfHolding_Contents"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_Chest_Equipment",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Consumables",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Alchemy",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Chest_UnRead-Books",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Chest_Read-Books",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Miscellaneous",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_KeyRing",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_QuestItems",1,0,0,0,0,0,0,0
+new treasuretable "BOHQOL_Equipment_Contents"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_Chest_Weapons",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Chest_Armor",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Chest_Accessories",1,0,0,0,0,0,0,0
+new treasuretable "BOHQOL_Consumables_Contents"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Potions",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Scrolls",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Arrows",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_BOHQOL_Bag_Throwables",1,0,0,0,0,0,0,0
+new treasuretable "DEN_Entrance_Trade"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_BagOfHolding",1,0,0,0,0,0,0,0
+new treasuretable "HAV_HarperQuarterMaster_Magic_Trade"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_BagOfHolding",1,0,0,0,0,0,0,0
+new treasuretable "MOO_BugBearvendor_Trade"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_BagOfHolding",1,0,0,0,0,0,0,0
+new treasuretable "WYR_Danthelon_Trader"
+CanMerge 1
+new subtable "1,1"
+object category "I_BOHQOL_BagOfHolding",1,0,0,0,0,0,0,0

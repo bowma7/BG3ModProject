@@ -1,0 +1,1424 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// BOHQOL_SortWeapons - REWRITE
+//
+// This goal owns sorting CLASSIFICATION / POLICY / MOVEMENT.
+//
+// Architecture:
+//   ACTION
+//     -> target ensurance (BagTargets)
+//     -> source/context
+//     -> ordered policy dispatcher
+//     -> shared category classifier
+//     -> shared movement
+//
+// Manual, FULL, SAFE and Item Enter do NOT maintain separate
+// copies of category classification.
+//
+// FULL and SAFE differ only in policy:
+//   SAFE protects Throwables and Quest & Important.
+//
+// Item Enter differs only in source:
+//   broad/manual source = loose player inventory
+//   Item Enter source   = BOHQOL root Bag
+// ============================================================
+
+
+// ============================================================
+// PRECEDENCE / CLASSIFICATION HELPERS
+//
+// FULL priority:
+//   1. Key
+//   2. Quest / Important
+//   3. Spell Scroll
+//   4. Book / Note
+//   5. Weapon
+//   6. Armor
+//   7. Accessory
+//   8. Potion / Coating
+//   9. Arrow
+//  10. Throwable
+//  11. Alchemy
+//  12. Misc
+//
+// SAFE:
+//   Key remains allowed.
+//   Quest / Important and Throwable are protected and block
+//   lower-priority fallthrough.
+// ============================================================
+
+
+// ------------------------------------------------------------
+// KEY
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsKey((GUIDSTRING)_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)KEY_9851fa99-5538-432a-8e77-c90929a88974,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// QUEST / IMPORTANT
+//
+// Explicit curated DB remains authoritative for known untagged
+// important objects. Native QUEST is retained as a safety net.
+// Keys win precedence and are excluded here.
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsExplicitQuestItem((GUIDSTRING)_Item)
+AND
+GetStatString(_Item, _Stat)
+AND
+DB_BOHQOL_QuestItem(_Stat)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsQuestImportant((GUIDSTRING)_Item)
+AND
+NOT QRY_BOHQOL_IsKey(_Item)
+AND
+QRY_BOHQOL_IsExplicitQuestItem(_Item)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsQuestImportant((GUIDSTRING)_Item)
+AND
+NOT QRY_BOHQOL_IsKey(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)Quest_8990df0e-adb1-4341-aca4-d6ef0fdfaa08,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsKeyOrQuest((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsKey(_Item)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsKeyOrQuest((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsQuestImportant(_Item)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// GENERAL SORTABLE ITEM
+//
+// Every ordinary category below Keys / Quest uses this guard.
+// This prevents protected Key/Quest items from falling into a
+// lower category regardless of overlapping engine tags.
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsGeneralSortable((GUIDSTRING)_Item)
+AND
+IsItem(_Item, 1)
+AND
+NOT QRY_BOHQOL_IsKeyOrQuest(_Item)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// SPELL SCROLL
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsSpellScroll((GUIDSTRING)_Item)
+AND
+GetStatString(_Item, _Stat)
+AND
+DB_BOHQOL_ConsumableType(_Stat, "Scroll")
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// BOOK / NOTE
+//
+// Spell scrolls carry BOOK too, so Scroll must be excluded.
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsBook((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)BOOK_8a8e253a-c081-45a1-9fa2-91b6901dc568,
+    1
+)
+AND
+NOT QRY_BOHQOL_IsSpellScroll(_Item)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// WEAPON
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsSortableWeapon((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsWeapon((ITEM)_Item, 1)
+AND
+IsEquipped((ITEM)_Item, 0)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// ACCESSORIES
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsSortableAccessory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Ring)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableAccessory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Ring2)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableAccessory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Amulet)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// ARMOR
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Helmet)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Breast)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Cloak)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Gloves)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Boots)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.Underwear)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.VanityBody)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSortableArmor((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsEquipable((ITEM)_Item, 1)
+AND
+IsWeapon((ITEM)_Item, 0)
+AND
+IsEquipped((ITEM)_Item, 0)
+AND
+GetEquipmentSlotForItem((ITEM)_Item, EQUIPMENTSLOT.VanityBoots)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// POTIONS / ELIXIRS / FINISHED COATINGS
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsPotionCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)POTION_56c99a77-8f6a-4584-8e41-2a3b9f6b5261,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsPotionCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)ALCH_SOLUTION_COATING_9a42f996-decf-4fcc-ad11-2ba6abada287,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// SPECIAL ARROWS
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsArrowCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)ARROW_fa8afea4-4742-4467-bdef-69851bd15878,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// THROWABLES
+//
+// Native GRENADE is primary.
+// Curated Throwable Stat DB remains the explicit fallback.
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsThrowableCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)GRENADE_fe0d86c3-a562-430e-a633-d8bf9bb27284,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsThrowableCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+GetStatString(_Item, _Stat)
+AND
+DB_BOHQOL_ConsumableType(_Stat, "Throwable")
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// ALCHEMY
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsAlchemyCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)ALCH_INGREDIENT_64b824e7-50c5-475a-98c2-52026e372d77,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsAlchemyCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+IsTagged(
+    _Item,
+    (TAG)ALCH_EXTRACT_85b58b89-c881-43c2-bbbe-7c8a0b3bf981,
+    1
+)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// MISCELLANEOUS
+//
+// Positive classification only. Unknown items do not fall back
+// to Misc.
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsMiscCategory((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+GetStatString(_Item, _Stat)
+AND
+DB_BOHQOL_MiscItem(_Stat)
+THEN
+DB_NOOP(1);
+
+
+// ------------------------------------------------------------
+// SAFE-PROTECTED CATEGORY
+//
+// SAFE protects Quest/Important and Throwables from ALL lower
+// category fallthrough.
+// ------------------------------------------------------------
+
+QRY
+QRY_BOHQOL_IsSafeProtected((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsQuestImportant(_Item)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_IsSafeProtected((GUIDSTRING)_Item)
+AND
+QRY_BOHQOL_IsThrowableCategory(_Item)
+THEN
+DB_NOOP(1);
+
+
+// ============================================================
+// TRANSIENT PRECEDENCE CLAIM
+//
+// Osiris PROC calls are ordered, but movement side effects should
+// not be used as the only mechanism preventing a later category
+// from processing the same item.
+//
+// The dispatcher clears this transient fact before processing.
+// The first matching category claims the item before moving it.
+// Every lower-priority category then fails immediately.
+//
+// The fact is cleared again after dispatch so it never becomes
+// persistent classification state.
+// ============================================================
+
+PROC
+PROC_BOHQOL_ClearSortClaim((GUIDSTRING)_Item)
+AND
+DB_BOHQOL_SortClaimed(_Item)
+THEN
+NOT DB_BOHQOL_SortClaimed(_Item);
+
+
+QRY
+QRY_BOHQOL_SortItemUnclaimed((GUIDSTRING)_Item)
+AND
+NOT DB_BOHQOL_SortClaimed(_Item)
+THEN
+DB_NOOP(1);
+
+
+// ============================================================
+// SHARED MOVEMENT
+//
+// Weightless is intentionally NOT applied here.
+// BOHQOL_Weightless owns the AddedTo behavior for managed targets.
+// ============================================================
+
+PROC
+PROC_BOHQOL_MoveItemToTarget(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Target
+)
+AND
+GetStackAmount((ITEM)_Item, _Amount, _)
+THEN
+ToInventory(
+    _Item,
+    _Target,
+    _Amount,
+    0,
+    0
+);
+
+
+// ============================================================
+// SHARED CATEGORY PROCESSORS
+//
+// _Source is the required DIRECT source:
+//   broad/manual -> Player
+//   Item Enter   -> root Bag
+//
+// These procedures contain each category's classification once.
+// ============================================================
+
+PROC
+PROC_BOHQOL_ProcessKeyItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsKey(_Item)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _KeyRing);
+
+
+PROC
+PROC_BOHQOL_ProcessQuestItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsQuestImportant(_Item)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _QuestItems);
+
+
+PROC
+PROC_BOHQOL_ProcessScrollItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsGeneralSortable(_Item)
+AND
+QRY_BOHQOL_IsSpellScroll(_Item)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Scrolls);
+
+
+PROC
+PROC_BOHQOL_ProcessBookItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsBook(_Item)
+AND
+GetTemplate(_Item, _ItemTemplate)
+AND
+DB_BOHQOL_ReadBookTemplate(_ItemTemplate)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _ReadBooks);
+
+
+PROC
+PROC_BOHQOL_ProcessBookItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsBook(_Item)
+AND
+GetTemplate(_Item, _ItemTemplate)
+AND
+NOT DB_BOHQOL_ReadBookTemplate(_ItemTemplate)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _UnreadBooks);
+
+
+PROC
+PROC_BOHQOL_ProcessWeaponItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsSortableWeapon(_Item)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Weapons);
+
+
+PROC
+PROC_BOHQOL_ProcessArmorItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsSortableArmor(_Item)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Armor);
+
+
+PROC
+PROC_BOHQOL_ProcessAccessoryItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsSortableAccessory(_Item)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Accessories);
+
+
+PROC
+PROC_BOHQOL_ProcessPotionItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsPotionCategory(_Item)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Potions);
+
+
+PROC
+PROC_BOHQOL_ProcessArrowItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsArrowCategory(_Item)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Arrows);
+
+
+PROC
+PROC_BOHQOL_ProcessThrowableItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsThrowableCategory(_Item)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Throwables);
+
+
+PROC
+PROC_BOHQOL_ProcessAlchemyItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsAlchemyCategory(_Item)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Alchemy);
+
+
+PROC
+PROC_BOHQOL_ProcessMiscItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+QRY_BOHQOL_SortItemUnclaimed(_Item)
+AND
+GetDirectInventoryOwner(_Item, _Source)
+AND
+QRY_BOHQOL_IsMiscCategory(_Item)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+THEN
+DB_BOHQOL_SortClaimed(_Item);
+PROC_BOHQOL_MoveItemToTarget(_Item, _Misc);
+
+
+// ============================================================
+// FULL DISPATCHER
+//
+// Calls are deliberately ordered. Once a higher-priority category
+// moves the item, later category processors fail their direct-owner
+// source guard.
+// ============================================================
+
+PROC
+PROC_BOHQOL_ProcessFullItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessKeyItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessQuestItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessScrollItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessBookItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessWeaponItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessArmorItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessAccessoryItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessPotionItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessArrowItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessThrowableItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessAlchemyItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessMiscItem(_Item, _Player, _Source);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ============================================================
+// SAFE DISPATCHER
+//
+// Quest/Important and Throwable are protected before any SAFE
+// category can run. Key remains allowed because QuestImportant
+// explicitly excludes Keys and Key has highest precedence.
+// ============================================================
+
+PROC
+PROC_BOHQOL_ProcessSafeItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Source
+)
+AND
+NOT QRY_BOHQOL_IsSafeProtected(_Item)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessKeyItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessScrollItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessBookItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessWeaponItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessArmorItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessAccessoryItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessPotionItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessArrowItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessAlchemyItem(_Item, _Player, _Source);
+PROC_BOHQOL_ProcessMiscItem(_Item, _Player, _Source);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ============================================================
+// FULL SORT - BROAD PLAYER INVENTORY
+// ============================================================
+
+PROC
+PROC_BOHQOL_SortAll((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureAllSortTargets(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortFull_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortFull_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ProcessFullItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Player
+);
+
+
+// ============================================================
+// SAFE SORT - BROAD PLAYER INVENTORY
+// ============================================================
+
+PROC
+PROC_BOHQOL_SortSafe((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureSafeSortTargets(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortSafe_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortSafe_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ProcessSafeItem(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Player
+);
+
+
+// ============================================================
+// MANUAL CATEGORY ACTIONS
+//
+// Manual actions use the SAME category processors as FULL/SAFE.
+// The only differences are:
+//   - ensure only the required target;
+//   - iterate with only the requested category event.
+//
+// Automatic sort mode never blocks these procedures.
+// ============================================================
+
+
+// ------------------------------------------------------------
+// WEAPONS
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortWeapons((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureWeaponTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortWeapon_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortWeapon_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessWeaponItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// ARMOR
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortArmor((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureArmorTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortArmor_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortArmor_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessArmorItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// ACCESSORIES
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortAccessories((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureAccessoryTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortAccessory_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortAccessory_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessAccessoryItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// POTIONS / COATINGS
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortPotions((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsurePotionTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortPotion_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortPotion_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessPotionItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// SCROLLS
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortScrolls((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureScrollTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortScroll_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortScroll_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessScrollItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// ARROWS
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortArrows((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureArrowTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortArrow_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortArrow_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessArrowItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// THROWABLES
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortThrowables((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureThrowableTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortThrowable_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortThrowable_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessThrowableItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// ALCHEMY
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortAlchemy((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureAlchemyTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortAlchemy_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortAlchemy_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessAlchemyItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// BOOKS
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortBooks((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBookTargets(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortBook_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortBook_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessBookItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// KEYS
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortKeys((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureKeyTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortKey_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortKey_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessKeyItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// QUEST / IMPORTANT
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortQuest((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureQuestTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortQuest_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortQuest_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessQuestItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ------------------------------------------------------------
+// MISC
+// ------------------------------------------------------------
+
+PROC
+PROC_BOHQOL_SortMisc((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureMiscTarget(_Player);
+
+IterateInventory(
+    _Player,
+    "BOHQOL_SortMisc_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_SortMisc_Item")
+AND
+GetDirectInventoryOwner(_Item, _Player)
+AND
+IsCharacter(_Player, 1)
+THEN
+PROC_BOHQOL_ClearSortClaim(_Item);
+PROC_BOHQOL_ProcessMiscItem(_Item, _Player, _Player);
+PROC_BOHQOL_ClearSortClaim(_Item);
+
+
+// ============================================================
+// ITEM ENTER - FULL
+//
+// Public interface is intentionally retained because AutoSort
+// already calls this procedure.
+//
+// The source boundary is the specific BOHQOL root Bag.
+// ============================================================
+
+PROC
+PROC_BOHQOL_AutoSortEnterFull(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetDirectInventoryOwner(_Item, _Bag)
+THEN
+PROC_BOHQOL_EnsureAllSortTargets(_Player);
+
+PROC_BOHQOL_AutoSortEnterFullReady(
+    _Item,
+    _Player,
+    _Bag
+);
+
+
+PROC
+PROC_BOHQOL_AutoSortEnterFullReady(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetDirectInventoryOwner(_Item, _Bag)
+THEN
+PROC_BOHQOL_ProcessFullItem(
+    _Item,
+    _Player,
+    _Bag
+);
+
+
+// ============================================================
+// ITEM ENTER - SAFE
+//
+// SAFE uses the exact same category processors but applies the
+// SAFE dispatcher, which protects Throwables + Quest/Important.
+// ============================================================
+
+PROC
+PROC_BOHQOL_AutoSortEnterSafe(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetDirectInventoryOwner(_Item, _Bag)
+THEN
+PROC_BOHQOL_EnsureSafeSortTargets(_Player);
+
+PROC_BOHQOL_AutoSortEnterSafeReady(
+    _Item,
+    _Player,
+    _Bag
+);
+
+
+PROC
+PROC_BOHQOL_AutoSortEnterSafeReady(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetDirectInventoryOwner(_Item, _Bag)
+THEN
+PROC_BOHQOL_ProcessSafeItem(
+    _Item,
+    _Player,
+    _Bag
+);
+EXITSECTION
+
+ENDEXITSECTION

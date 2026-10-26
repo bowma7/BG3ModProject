@@ -1,0 +1,1689 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// BOHQOL_BagTargets - REWRITE
+//
+// Architecture:
+//   CACHE VALIDATION -> ENSURE -> DISCOVER/RECOVER
+//
+// Principles:
+//   - Target DBs are caches.
+//   - Valid cached targets are reused.
+//   - Discovery runs only when a target is missing/stale.
+//   - Exact hierarchy is validated with direct ownership.
+//   - Sorting policy does NOT live in this file.
+//   - Weightless repair is kept separate from target discovery.
+//   - Retrieval reuses the same target cache.
+// ============================================================
+
+
+// ============================================================
+// ROOT TEMPLATES
+//
+// BOHQOL:
+//   Bag of Holding      568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90
+//   Equipment           c6b4b1ca-874e-4ba5-9ed1-50346d6032a3
+//   Weapons             deb488e6-51c2-46e6-a10f-3831be418de4
+//   Armor               df6b1432-8604-46ce-b66e-e0f42601b302
+//   Accessories         81fe6e28-6257-4d98-83c9-3578bf78acbc
+//   Consumables         be09f080-b3d0-4fb0-b85e-21a92e919e9b
+//   Potions             1d05a7c1-5a79-453e-9a90-3bf90d574a19
+//   Scrolls             2d1184a2-f0b6-46ab-8cf6-0379dfeba3c1
+//   Arrows              601175a3-e3bf-4d4a-acdc-1533e6f6db82
+//   Throwables          aeaf3522-054e-4e36-9ca7-9c746d26f014
+//   Alchemy             77aeba4a-9a37-4f9f-bb63-0ea5eb92b08f
+//   Unread Books        955f9128-460a-485d-89b4-cc5442daa79b
+//   Read Books          c41e30c4-db53-42b9-8725-04cc5c58346a
+//   Key Ring            e8aa6476-fda1-4bb3-a573-5de2bafcf4a6
+//   Quest & Important   f2948197-47d5-40e9-aa5d-656639e748fb
+//   Miscellaneous       3286b2ce-718d-4e85-9928-c92c18a0fca1
+//
+// Vanilla retrieval safety containers:
+//   Keychain            ee329627-dbee-405f-b9a6-b260de9ad34c
+//   Alchemy Pouch       b7543ff4-5010-4c01-9bcd-4da1047aebfc
+// ============================================================
+
+
+// ============================================================
+// VALID TARGET QUERIES
+//
+// These queries validate the exact cached hierarchy.
+//
+// Root Bag:
+//   Bag -> Player
+//
+// Equipment branch:
+//   Equipment -> Bag
+//   Weapon / Armor / Accessories -> Equipment
+//
+// Consumables branch:
+//   Consumables -> Bag
+//   Potion / Scroll / Arrow / Throwable -> Consumables
+//
+// Direct Bag children:
+//   Alchemy / Books / Key Ring / Quest / Misc -> Bag
+//
+// The parent target is included in each nested query, so moving a
+// BOHQOL organizer elsewhere in the player's inventory invalidates
+// the cache rather than silently continuing to use the wrong tree.
+// ============================================================
+
+QRY
+QRY_BOHQOL_HasValidBagTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetDirectInventoryOwner(_Bag, _Player)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidEquipmentTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+GetDirectInventoryOwner(_Equipment, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidWeaponTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons)
+AND
+GetDirectInventoryOwner(_Weapons, _Equipment)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidArmorTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor)
+AND
+GetDirectInventoryOwner(_Armor, _Equipment)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidAccessoryTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories)
+AND
+GetDirectInventoryOwner(_Accessories, _Equipment)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidConsumablesTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+GetDirectInventoryOwner(_Consumables, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidPotionTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions)
+AND
+GetDirectInventoryOwner(_Potions, _Consumables)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidScrollTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls)
+AND
+GetDirectInventoryOwner(_Scrolls, _Consumables)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidArrowTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows)
+AND
+GetDirectInventoryOwner(_Arrows, _Consumables)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidThrowableTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables)
+AND
+GetDirectInventoryOwner(_Throwables, _Consumables)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidAlchemyTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy)
+AND
+GetDirectInventoryOwner(_Alchemy, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidUnreadBooksTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks)
+AND
+GetDirectInventoryOwner(_UnreadBooks, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidReadBooksTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks)
+AND
+GetDirectInventoryOwner(_ReadBooks, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidKeyRingTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+AND
+GetDirectInventoryOwner(_KeyRing, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidQuestTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+AND
+GetDirectInventoryOwner(_QuestItems, _Bag)
+THEN
+DB_NOOP(1);
+
+
+QRY
+QRY_BOHQOL_HasValidMiscTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+AND
+GetDirectInventoryOwner(_Misc, _Bag)
+THEN
+DB_NOOP(1);
+
+
+// ============================================================
+// CLEAR TARGET CACHE
+//
+// These remain small, explicit procedures because Osiris DB
+// relations cannot be passed generically as procedure parameters.
+// ============================================================
+
+PROC
+PROC_BOHQOL_ClearBagTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearEquipmentTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearWeaponTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearArmorTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearAccessoryTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearConsumablesTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearPotionTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearScrollTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearArrowTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearThrowableTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearAlchemyTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearUnreadBooksTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearReadBooksTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearKeyRingTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearQuestItemsTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+PROC
+PROC_BOHQOL_ClearMiscTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget)
+THEN
+NOT DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_OldTarget);
+
+
+// ============================================================
+// DISCOVERY / RECOVERY
+//
+// Discovery performs the actual RootTemplate lookup.
+// Every nested discovery verifies the direct parent.
+//
+// These procedures DO NOT sort and DO NOT run Weightless repair.
+// ============================================================
+
+PROC
+PROC_BOHQOL_DiscoverBagTarget((GUIDSTRING)_Player)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_BagOfHolding_568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90,
+    _Player,
+    _Bag
+)
+AND
+GetDirectInventoryOwner(_Bag, _Player)
+THEN
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag);
+
+
+PROC
+PROC_BOHQOL_DiscoverEquipmentTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_Equipment_c6b4b1ca-874e-4ba5-9ed1-50346d6032a3,
+    _Bag,
+    _Equipment
+)
+AND
+GetDirectInventoryOwner(_Equipment, _Bag)
+THEN
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment);
+
+
+PROC
+PROC_BOHQOL_DiscoverWeaponTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_Weapons_deb488e6-51c2-46e6-a10f-3831be418de4,
+    _Equipment,
+    _Weapons
+)
+AND
+GetDirectInventoryOwner(_Weapons, _Equipment)
+THEN
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons);
+
+
+PROC
+PROC_BOHQOL_DiscoverArmorTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_Armor_df6b1432-8604-46ce-b66e-e0f42601b302,
+    _Equipment,
+    _Armor
+)
+AND
+GetDirectInventoryOwner(_Armor, _Equipment)
+THEN
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor);
+
+
+PROC
+PROC_BOHQOL_DiscoverAccessoryTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_EquipmentTarget((GUIDSTRING)_Player, (GUIDSTRING)_Equipment)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_Accessories_81fe6e28-6257-4d98-83c9-3578bf78acbc,
+    _Equipment,
+    _Accessories
+)
+AND
+GetDirectInventoryOwner(_Accessories, _Equipment)
+THEN
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories);
+
+
+PROC
+PROC_BOHQOL_DiscoverConsumablesTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Bag_Consumables_be09f080-b3d0-4fb0-b85e-21a92e919e9b,
+    _Bag,
+    _Consumables
+)
+AND
+GetDirectInventoryOwner(_Consumables, _Bag)
+THEN
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables);
+
+
+PROC
+PROC_BOHQOL_DiscoverPotionTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Bag_Potions_1d05a7c1-5a79-453e-9a90-3bf90d574a19,
+    _Consumables,
+    _Potions
+)
+AND
+GetDirectInventoryOwner(_Potions, _Consumables)
+THEN
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions);
+
+
+PROC
+PROC_BOHQOL_DiscoverScrollTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Bag_Scrolls_2d1184a2-f0b6-46ab-8cf6-0379dfeba3c1,
+    _Consumables,
+    _Scrolls
+)
+AND
+GetDirectInventoryOwner(_Scrolls, _Consumables)
+THEN
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls);
+
+
+PROC
+PROC_BOHQOL_DiscoverArrowTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Bag_Arrows_601175a3-e3bf-4d4a-acdc-1533e6f6db82,
+    _Consumables,
+    _Arrows
+)
+AND
+GetDirectInventoryOwner(_Arrows, _Consumables)
+THEN
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows);
+
+
+PROC
+PROC_BOHQOL_DiscoverThrowableTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ConsumablesTarget((GUIDSTRING)_Player, (GUIDSTRING)_Consumables)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Bag_Throwables_aeaf3522-054e-4e36-9ca7-9c746d26f014,
+    _Consumables,
+    _Throwables
+)
+AND
+GetDirectInventoryOwner(_Throwables, _Consumables)
+THEN
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables);
+
+
+PROC
+PROC_BOHQOL_DiscoverAlchemyTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Bag_Alchemy_77aeba4a-9a37-4f9f-bb63-0ea5eb92b08f,
+    _Bag,
+    _Alchemy
+)
+AND
+GetDirectInventoryOwner(_Alchemy, _Bag)
+THEN
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy);
+
+
+PROC
+PROC_BOHQOL_DiscoverUnreadBooksTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_UnRead-Books_955f9128-460a-485d-89b4-cc5442daa79b,
+    _Bag,
+    _UnreadBooks
+)
+AND
+GetDirectInventoryOwner(_UnreadBooks, _Bag)
+THEN
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks);
+
+
+PROC
+PROC_BOHQOL_DiscoverReadBooksTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_Read-Books_c41e30c4-db53-42b9-8725-04cc5c58346a,
+    _Bag,
+    _ReadBooks
+)
+AND
+GetDirectInventoryOwner(_ReadBooks, _Bag)
+THEN
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks);
+
+
+PROC
+PROC_BOHQOL_DiscoverKeyRingTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_KeyRing_e8aa6476-fda1-4bb3-a573-5de2bafcf4a6,
+    _Bag,
+    _KeyRing
+)
+AND
+GetDirectInventoryOwner(_KeyRing, _Bag)
+THEN
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing);
+
+
+PROC
+PROC_BOHQOL_DiscoverQuestTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_QuestItems_f2948197-47d5-40e9-aa5d-656639e748fb,
+    _Bag,
+    _QuestItems
+)
+AND
+GetDirectInventoryOwner(_QuestItems, _Bag)
+THEN
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems);
+
+
+PROC
+PROC_BOHQOL_DiscoverMiscTarget((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)I_BOHQOL_Bag_Miscellaneous_3286b2ce-718d-4e85-9928-c92c18a0fca1,
+    _Bag,
+    _Misc
+)
+AND
+GetDirectInventoryOwner(_Misc, _Bag)
+THEN
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc);
+
+
+// ============================================================
+// TARGET ENSURANCE - ROOT
+// ============================================================
+
+PROC
+PROC_BOHQOL_EnsureBagTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidBagTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_EnsureBagTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidBagTarget(_Player)
+THEN
+PROC_BOHQOL_ClearBagTarget(_Player);
+PROC_BOHQOL_DiscoverBagTarget(_Player);
+
+
+// ============================================================
+// TARGET ENSURANCE - EQUIPMENT BRANCH
+// ============================================================
+
+PROC
+PROC_BOHQOL_EnsureEquipmentTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckEquipmentTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckEquipmentTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidEquipmentTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckEquipmentTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidEquipmentTarget(_Player)
+THEN
+PROC_BOHQOL_ClearEquipmentTarget(_Player);
+PROC_BOHQOL_DiscoverEquipmentTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureWeaponTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureEquipmentTarget(_Player);
+PROC_BOHQOL_CheckWeaponTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckWeaponTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidWeaponTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckWeaponTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidWeaponTarget(_Player)
+THEN
+PROC_BOHQOL_ClearWeaponTarget(_Player);
+PROC_BOHQOL_DiscoverWeaponTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureArmorTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureEquipmentTarget(_Player);
+PROC_BOHQOL_CheckArmorTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckArmorTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidArmorTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckArmorTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidArmorTarget(_Player)
+THEN
+PROC_BOHQOL_ClearArmorTarget(_Player);
+PROC_BOHQOL_DiscoverArmorTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureAccessoryTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureEquipmentTarget(_Player);
+PROC_BOHQOL_CheckAccessoryTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckAccessoryTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidAccessoryTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckAccessoryTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidAccessoryTarget(_Player)
+THEN
+PROC_BOHQOL_ClearAccessoryTarget(_Player);
+PROC_BOHQOL_DiscoverAccessoryTarget(_Player);
+
+
+// ============================================================
+// TARGET ENSURANCE - CONSUMABLES BRANCH
+// ============================================================
+
+PROC
+PROC_BOHQOL_EnsureConsumablesTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckConsumablesTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckConsumablesTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidConsumablesTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckConsumablesTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidConsumablesTarget(_Player)
+THEN
+PROC_BOHQOL_ClearConsumablesTarget(_Player);
+PROC_BOHQOL_DiscoverConsumablesTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsurePotionTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureConsumablesTarget(_Player);
+PROC_BOHQOL_CheckPotionTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckPotionTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidPotionTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckPotionTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidPotionTarget(_Player)
+THEN
+PROC_BOHQOL_ClearPotionTarget(_Player);
+PROC_BOHQOL_DiscoverPotionTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureScrollTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureConsumablesTarget(_Player);
+PROC_BOHQOL_CheckScrollTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckScrollTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidScrollTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckScrollTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidScrollTarget(_Player)
+THEN
+PROC_BOHQOL_ClearScrollTarget(_Player);
+PROC_BOHQOL_DiscoverScrollTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureArrowTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureConsumablesTarget(_Player);
+PROC_BOHQOL_CheckArrowTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckArrowTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidArrowTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckArrowTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidArrowTarget(_Player)
+THEN
+PROC_BOHQOL_ClearArrowTarget(_Player);
+PROC_BOHQOL_DiscoverArrowTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureThrowableTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureConsumablesTarget(_Player);
+PROC_BOHQOL_CheckThrowableTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckThrowableTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidThrowableTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckThrowableTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidThrowableTarget(_Player)
+THEN
+PROC_BOHQOL_ClearThrowableTarget(_Player);
+PROC_BOHQOL_DiscoverThrowableTarget(_Player);
+
+
+// ============================================================
+// TARGET ENSURANCE - DIRECT BAG CHILDREN
+// ============================================================
+
+PROC
+PROC_BOHQOL_EnsureAlchemyTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckAlchemyTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckAlchemyTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidAlchemyTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckAlchemyTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidAlchemyTarget(_Player)
+THEN
+PROC_BOHQOL_ClearAlchemyTarget(_Player);
+PROC_BOHQOL_DiscoverAlchemyTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureBookTargets((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckUnreadBooksTarget(_Player);
+PROC_BOHQOL_CheckReadBooksTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckUnreadBooksTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidUnreadBooksTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckUnreadBooksTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidUnreadBooksTarget(_Player)
+THEN
+PROC_BOHQOL_ClearUnreadBooksTarget(_Player);
+PROC_BOHQOL_DiscoverUnreadBooksTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckReadBooksTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidReadBooksTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckReadBooksTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidReadBooksTarget(_Player)
+THEN
+PROC_BOHQOL_ClearReadBooksTarget(_Player);
+PROC_BOHQOL_DiscoverReadBooksTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureKeyTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckKeyTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckKeyTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidKeyRingTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckKeyTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidKeyRingTarget(_Player)
+THEN
+PROC_BOHQOL_ClearKeyRingTarget(_Player);
+PROC_BOHQOL_DiscoverKeyRingTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureQuestTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckQuestTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckQuestTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidQuestTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckQuestTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidQuestTarget(_Player)
+THEN
+PROC_BOHQOL_ClearQuestItemsTarget(_Player);
+PROC_BOHQOL_DiscoverQuestTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureMiscTarget((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_CheckMiscTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_CheckMiscTarget((GUIDSTRING)_Player)
+AND
+QRY_BOHQOL_HasValidMiscTarget(_Player)
+THEN
+DB_NOOP(1);
+
+
+PROC
+PROC_BOHQOL_CheckMiscTarget((GUIDSTRING)_Player)
+AND
+NOT QRY_BOHQOL_HasValidMiscTarget(_Player)
+THEN
+PROC_BOHQOL_ClearMiscTarget(_Player);
+PROC_BOHQOL_DiscoverMiscTarget(_Player);
+
+
+// ============================================================
+// MULTI-TARGET ENSURANCE
+//
+// These are infrastructure bundles, not sorting-policy classifiers.
+//
+// FULL:
+//   every sorting destination.
+//
+// SAFE:
+//   Weapons / Armor / Accessories
+//   Potions / Scrolls / Arrows
+//   Alchemy
+//   Read + Unread Books
+//   Key Ring
+//   Misc
+//
+// SAFE intentionally does NOT ensure:
+//   Throwables
+//   Quest & Important
+// ============================================================
+
+PROC
+PROC_BOHQOL_EnsureEquipmentBranch((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureEquipmentTarget(_Player);
+PROC_BOHQOL_CheckWeaponTarget(_Player);
+PROC_BOHQOL_CheckArmorTarget(_Player);
+PROC_BOHQOL_CheckAccessoryTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureConsumablesBranch((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureConsumablesTarget(_Player);
+PROC_BOHQOL_CheckPotionTarget(_Player);
+PROC_BOHQOL_CheckScrollTarget(_Player);
+PROC_BOHQOL_CheckArrowTarget(_Player);
+PROC_BOHQOL_CheckThrowableTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureSafeConsumablesBranch((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureConsumablesTarget(_Player);
+PROC_BOHQOL_CheckPotionTarget(_Player);
+PROC_BOHQOL_CheckScrollTarget(_Player);
+PROC_BOHQOL_CheckArrowTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureAllSortTargets((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_EnsureEquipmentBranch(_Player);
+PROC_BOHQOL_EnsureConsumablesBranch(_Player);
+PROC_BOHQOL_CheckAlchemyTarget(_Player);
+PROC_BOHQOL_CheckUnreadBooksTarget(_Player);
+PROC_BOHQOL_CheckReadBooksTarget(_Player);
+PROC_BOHQOL_CheckKeyTarget(_Player);
+PROC_BOHQOL_CheckQuestTarget(_Player);
+PROC_BOHQOL_CheckMiscTarget(_Player);
+
+
+PROC
+PROC_BOHQOL_EnsureSafeSortTargets((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBagTarget(_Player);
+PROC_BOHQOL_EnsureEquipmentBranch(_Player);
+PROC_BOHQOL_EnsureSafeConsumablesBranch(_Player);
+PROC_BOHQOL_CheckAlchemyTarget(_Player);
+PROC_BOHQOL_CheckUnreadBooksTarget(_Player);
+PROC_BOHQOL_CheckReadBooksTarget(_Player);
+PROC_BOHQOL_CheckKeyTarget(_Player);
+PROC_BOHQOL_CheckMiscTarget(_Player);
+
+
+// ============================================================
+// BAG OPEN TARGET REFRESH
+//
+// Opening a specific BOHQOL Bag makes that runtime Bag the active
+// target for the player. This preserves the useful behavior of the
+// old TemplateOpening path, especially if more than one replacement
+// Bag exists.
+//
+// Child caches do not need to be globally cleared here. Their own
+// validity queries include the active parent, so they invalidate
+// naturally if the active Bag changes.
+// ============================================================
+
+IF
+TemplateOpening(
+    (ITEMROOT)BOHQOL_BagOfHolding_568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90,
+    _Bag,
+    _Player
+)
+AND
+GetDirectInventoryOwner(_Bag, _Player)
+THEN
+PROC_BOHQOL_RefreshOpenedBagTarget(
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+);
+
+PROC_BOHQOL_EnsureAllSortTargets(
+    (GUIDSTRING)_Player
+);
+
+PROC_BOHQOL_RepairCachedContainerWeightless(
+    (GUIDSTRING)_Player
+);
+
+
+PROC
+PROC_BOHQOL_RefreshOpenedBagTarget(
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+)
+THEN
+PROC_BOHQOL_ClearBagTarget(_Player);
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag);
+
+
+// ============================================================
+// WEIGHTLESS REPAIR - SEPARATE FROM TARGET DISCOVERY
+//
+// Preserve the old special repair behavior for containers whose
+// contents can arrive before BOHQOL has a cached runtime target.
+//
+// Empty containers do not need an iterator.
+// ============================================================
+
+PROC
+PROC_BOHQOL_RepairCachedContainerWeightless((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_RepairKeyWeightless(_Player);
+PROC_BOHQOL_RepairQuestWeightless(_Player);
+PROC_BOHQOL_RepairMiscWeightless(_Player);
+
+
+PROC
+PROC_BOHQOL_RepairKeyWeightless((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+AND
+IsInventoryEmpty(_KeyRing, 0)
+THEN
+IterateInventory(
+    _KeyRing,
+    "BOHQOL_WeightlessKey_Item",
+    ""
+);
+
+
+PROC
+PROC_BOHQOL_RepairQuestWeightless((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+AND
+IsInventoryEmpty(_QuestItems, 0)
+THEN
+IterateInventory(
+    _QuestItems,
+    "BOHQOL_WeightlessQuest_Item",
+    ""
+);
+
+
+PROC
+PROC_BOHQOL_RepairMiscWeightless((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+AND
+IsInventoryEmpty(_Misc, 0)
+THEN
+IterateInventory(
+    _Misc,
+    "BOHQOL_WeightlessMisc_Item",
+    ""
+);
+
+
+// ============================================================
+// GENERIC RETRIEVAL
+//
+// Retrieval is intentionally separate from sorting.
+//
+// The target's top-level inventory owner determines the player,
+// so category-specific temporary retrieval DBs are unnecessary.
+//
+// Weightlessness is removed BEFORE moving. This is important for
+// Keys and Alchemy because BG3 may immediately route those items
+// into a vanilla Keychain / Alchemy Pouch instead of leaving them
+// loose at the player root.
+// ============================================================
+
+PROC
+PROC_BOHQOL_RetrieveTarget((GUIDSTRING)_Target)
+THEN
+IterateInventory(
+    _Target,
+    "BOHQOL_RetrieveTarget_Item",
+    ""
+);
+
+
+IF
+EntityEvent(_Item, "BOHQOL_RetrieveTarget_Item")
+AND
+IsItem(_Item, 1)
+AND
+GetDirectInventoryOwner(_Item, _Target)
+AND
+GetInventoryOwner(_Target, _Player)
+AND
+IsCharacter(_Player, 1)
+AND
+GetStackAmount((ITEM)_Item, _Amount, _)
+THEN
+RemovePassive(
+    _Item,
+    "BOHQOL_TestWeightless"
+);
+
+ToInventory(
+    _Item,
+    _Player,
+    _Amount,
+    0,
+    0
+);
+
+
+// ============================================================
+// CATEGORY RETRIEVAL ENTRY POINTS
+//
+// Public action pattern:
+//   Ensure target -> use cached target -> generic retrieval.
+// ============================================================
+
+PROC
+PROC_BOHQOL_RetrieveWeapons((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureWeaponTarget(_Player);
+PROC_BOHQOL_RetrieveWeaponsCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveWeaponsCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_WeaponTarget((GUIDSTRING)_Player, (GUIDSTRING)_Weapons)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Weapons);
+
+
+PROC
+PROC_BOHQOL_RetrieveArmor((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureArmorTarget(_Player);
+PROC_BOHQOL_RetrieveArmorCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveArmorCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ArmorTarget((GUIDSTRING)_Player, (GUIDSTRING)_Armor)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Armor);
+
+
+PROC
+PROC_BOHQOL_RetrieveAccessories((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureAccessoryTarget(_Player);
+PROC_BOHQOL_RetrieveAccessoriesCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveAccessoriesCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_AccessoryTarget((GUIDSTRING)_Player, (GUIDSTRING)_Accessories)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Accessories);
+
+
+PROC
+PROC_BOHQOL_RetrievePotions((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsurePotionTarget(_Player);
+PROC_BOHQOL_RetrievePotionsCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrievePotionsCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_PotionTarget((GUIDSTRING)_Player, (GUIDSTRING)_Potions)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Potions);
+
+
+PROC
+PROC_BOHQOL_RetrieveScrolls((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureScrollTarget(_Player);
+PROC_BOHQOL_RetrieveScrollsCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveScrollsCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ScrollTarget((GUIDSTRING)_Player, (GUIDSTRING)_Scrolls)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Scrolls);
+
+
+PROC
+PROC_BOHQOL_RetrieveArrows((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureArrowTarget(_Player);
+PROC_BOHQOL_RetrieveArrowsCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveArrowsCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ArrowTarget((GUIDSTRING)_Player, (GUIDSTRING)_Arrows)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Arrows);
+
+
+PROC
+PROC_BOHQOL_RetrieveThrowables((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureThrowableTarget(_Player);
+PROC_BOHQOL_RetrieveThrowablesCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveThrowablesCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_ThrowableTarget((GUIDSTRING)_Player, (GUIDSTRING)_Throwables)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Throwables);
+
+
+PROC
+PROC_BOHQOL_RetrieveAlchemy((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureAlchemyTarget(_Player);
+PROC_BOHQOL_RetrieveAlchemyCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveAlchemyCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_AlchemyTarget((GUIDSTRING)_Player, (GUIDSTRING)_Alchemy)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Alchemy);
+
+
+PROC
+PROC_BOHQOL_RetrieveBooks((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureBookTargets(_Player);
+PROC_BOHQOL_RetrieveBooksCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveBooksCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_UnreadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_UnreadBooks)
+AND
+DB_BOHQOL_ReadBooksTarget((GUIDSTRING)_Player, (GUIDSTRING)_ReadBooks)
+THEN
+PROC_BOHQOL_RetrieveTarget(_UnreadBooks);
+PROC_BOHQOL_RetrieveTarget(_ReadBooks);
+
+
+PROC
+PROC_BOHQOL_RetrieveKeys((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureKeyTarget(_Player);
+PROC_BOHQOL_RetrieveKeysCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveKeysCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_KeyRingTarget((GUIDSTRING)_Player, (GUIDSTRING)_KeyRing)
+THEN
+PROC_BOHQOL_RetrieveTarget(_KeyRing);
+
+
+PROC
+PROC_BOHQOL_RetrieveQuest((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureQuestTarget(_Player);
+PROC_BOHQOL_RetrieveQuestCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveQuestCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_QuestItemsTarget((GUIDSTRING)_Player, (GUIDSTRING)_QuestItems)
+THEN
+PROC_BOHQOL_RetrieveTarget(_QuestItems);
+
+
+PROC
+PROC_BOHQOL_RetrieveMisc((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_EnsureMiscTarget(_Player);
+PROC_BOHQOL_RetrieveMiscCached(_Player);
+
+
+PROC
+PROC_BOHQOL_RetrieveMiscCached((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_MiscTarget((GUIDSTRING)_Player, (GUIDSTRING)_Misc)
+THEN
+PROC_BOHQOL_RetrieveTarget(_Misc);
+
+
+// ============================================================
+// RETRIEVE ALL
+//
+// Preserves the current retrieval scope:
+//   category destinations are emptied;
+//   arbitrary items manually left at Bag / Equipment /
+//   Consumables root levels are not added to this action.
+//
+// Keys and Alchemy first prepare their vanilla safety containers.
+// ============================================================
+
+PROC
+PROC_BOHQOL_RetrieveAll((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_RetrieveWeapons(_Player);
+PROC_BOHQOL_RetrieveArmor(_Player);
+PROC_BOHQOL_RetrieveAccessories(_Player);
+PROC_BOHQOL_RetrievePotions(_Player);
+PROC_BOHQOL_RetrieveScrolls(_Player);
+PROC_BOHQOL_RetrieveArrows(_Player);
+PROC_BOHQOL_RetrieveThrowables(_Player);
+PROC_BOHQOL_PrepareRetrieveAlchemy(_Player);
+PROC_BOHQOL_RetrieveBooks(_Player);
+PROC_BOHQOL_PrepareRetrieveKeys(_Player);
+PROC_BOHQOL_RetrieveQuest(_Player);
+PROC_BOHQOL_RetrieveMisc(_Player);
+
+
+// ============================================================
+// KEYS - VANILLA SAFETY CONTAINER PREPARATION
+// ============================================================
+
+PROC
+PROC_BOHQOL_ClearRetrieveKeySafetyWaiting((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_RetrieveKeySafetyWaiting(_Player)
+THEN
+NOT DB_BOHQOL_RetrieveKeySafetyWaiting(_Player);
+
+
+PROC
+PROC_BOHQOL_PrepareRetrieveKeys((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_ClearRetrieveKeySafetyWaiting(_Player);
+PROC_BOHQOL_PrepareRetrieveKeysStage(_Player);
+
+
+// Existing vanilla Keychain is already directly on player.
+PROC
+PROC_BOHQOL_PrepareRetrieveKeysStage((GUIDSTRING)_Player)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)ee329627-dbee-405f-b9a6-b260de9ad34c,
+    _Player,
+    _VanillaKeychain
+)
+AND
+GetDirectInventoryOwner(_VanillaKeychain, _Player)
+THEN
+PROC_BOHQOL_RetrieveKeys(_Player);
+
+
+// Existing vanilla Keychain is nested.
+// Move the Keychain itself to player root, then continue when
+// TemplateAddedTo confirms the move.
+PROC
+PROC_BOHQOL_PrepareRetrieveKeysStage((GUIDSTRING)_Player)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)ee329627-dbee-405f-b9a6-b260de9ad34c,
+    _Player,
+    _VanillaKeychain
+)
+AND
+NOT GetDirectInventoryOwner(_VanillaKeychain, _Player)
+THEN
+DB_BOHQOL_RetrieveKeySafetyWaiting(_Player);
+
+ToInventory(
+    _VanillaKeychain,
+    _Player,
+    1,
+    0,
+    0
+);
+
+
+// No vanilla Keychain exists anywhere in the player's inventory.
+PROC
+PROC_BOHQOL_PrepareRetrieveKeysStage((GUIDSTRING)_Player)
+AND
+NOT GetItemByTemplateInInventory(
+    (ITEMROOT)ee329627-dbee-405f-b9a6-b260de9ad34c,
+    _Player,
+    _
+)
+THEN
+DB_BOHQOL_RetrieveKeySafetyWaiting(_Player);
+
+TemplateAddTo(
+    (ITEMROOT)ee329627-dbee-405f-b9a6-b260de9ad34c,
+    _Player,
+    1,
+    0
+);
+
+
+IF
+TemplateAddedTo(
+    (ROOT)ee329627-dbee-405f-b9a6-b260de9ad34c,
+    _VanillaKeychain,
+    _Player,
+    _AddType
+)
+AND
+DB_BOHQOL_RetrieveKeySafetyWaiting(_Player)
+AND
+GetDirectInventoryOwner(_VanillaKeychain, _Player)
+THEN
+NOT DB_BOHQOL_RetrieveKeySafetyWaiting(_Player);
+
+PROC_BOHQOL_RetrieveKeys(_Player);
+
+
+// ============================================================
+// ALCHEMY - VANILLA SAFETY CONTAINER PREPARATION
+// ============================================================
+
+PROC
+PROC_BOHQOL_ClearRetrieveAlchemySafetyWaiting((GUIDSTRING)_Player)
+AND
+DB_BOHQOL_RetrieveAlchemySafetyWaiting(_Player)
+THEN
+NOT DB_BOHQOL_RetrieveAlchemySafetyWaiting(_Player);
+
+
+PROC
+PROC_BOHQOL_PrepareRetrieveAlchemy((GUIDSTRING)_Player)
+THEN
+PROC_BOHQOL_ClearRetrieveAlchemySafetyWaiting(_Player);
+PROC_BOHQOL_PrepareRetrieveAlchemyStage(_Player);
+
+
+// Existing vanilla Alchemy Pouch is already directly on player.
+PROC
+PROC_BOHQOL_PrepareRetrieveAlchemyStage((GUIDSTRING)_Player)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)b7543ff4-5010-4c01-9bcd-4da1047aebfc,
+    _Player,
+    _VanillaAlchemy
+)
+AND
+GetDirectInventoryOwner(_VanillaAlchemy, _Player)
+THEN
+PROC_BOHQOL_RetrieveAlchemy(_Player);
+
+
+// Existing vanilla Alchemy Pouch is nested.
+PROC
+PROC_BOHQOL_PrepareRetrieveAlchemyStage((GUIDSTRING)_Player)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)b7543ff4-5010-4c01-9bcd-4da1047aebfc,
+    _Player,
+    _VanillaAlchemy
+)
+AND
+NOT GetDirectInventoryOwner(_VanillaAlchemy, _Player)
+THEN
+DB_BOHQOL_RetrieveAlchemySafetyWaiting(_Player);
+
+ToInventory(
+    _VanillaAlchemy,
+    _Player,
+    1,
+    0,
+    0
+);
+
+
+// No vanilla Alchemy Pouch exists anywhere in player inventory.
+PROC
+PROC_BOHQOL_PrepareRetrieveAlchemyStage((GUIDSTRING)_Player)
+AND
+NOT GetItemByTemplateInInventory(
+    (ITEMROOT)b7543ff4-5010-4c01-9bcd-4da1047aebfc,
+    _Player,
+    _
+)
+THEN
+DB_BOHQOL_RetrieveAlchemySafetyWaiting(_Player);
+
+TemplateAddTo(
+    (ITEMROOT)b7543ff4-5010-4c01-9bcd-4da1047aebfc,
+    _Player,
+    1,
+    0
+);
+
+
+IF
+TemplateAddedTo(
+    (ROOT)b7543ff4-5010-4c01-9bcd-4da1047aebfc,
+    _VanillaAlchemy,
+    _Player,
+    _AddType
+)
+AND
+DB_BOHQOL_RetrieveAlchemySafetyWaiting(_Player)
+AND
+GetDirectInventoryOwner(_VanillaAlchemy, _Player)
+THEN
+NOT DB_BOHQOL_RetrieveAlchemySafetyWaiting(_Player);
+
+PROC_BOHQOL_RetrieveAlchemy(_Player);
+EXITSECTION
+
+ENDEXITSECTION

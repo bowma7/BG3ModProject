@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stats stat_object_definition_id="e4012e18-6a6b-4f40-aefa-c83b078c136c">
+  <stat_objects>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="4be12361-eb28-455f-86aa-3655303e7c88" />
+        <field name="Name" type="NameTableFieldDefinition" value="TUT_Chest_Potions" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_BagOfHolding" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_BagOfHolding_Contents" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Chest_Equipment" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="a06e2367-5800-4641-8df3-62fd73a02c67" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_BagOfHolding_Contents_substat" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Consumables" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="e9b94db6-fe36-46e0-94dd-10333c96d53f" />
+        <field name="Name" type="NameTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e_substat_1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Alchemy" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="e675368b-daf7-4fd3-a097-34c9c29b5564" />
+        <field name="Name" type="NameTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e_substat_2" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Chest_UnRead-Books" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="1d773d59-93ea-41ed-b08a-f7f49eae8b2f" />
+        <field name="Name" type="NameTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e_substat_3" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Chest_Read-Books" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="7e124a47-09a2-43bd-bc5f-7af9dc7fc4a9" />
+        <field name="Name" type="NameTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e_substat_6" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Miscellaneous" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="d2737a35-44a9-4234-a30b-233ffbd058cf" />
+        <field name="Name" type="NameTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e_substat_0" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_KeyRing" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e" />
+        <field name="UUID" type="IdTableFieldDefinition" value="1a04b758-9d9b-48aa-bc76-b354ce0cf1d1" />
+        <field name="Name" type="NameTableFieldDefinition" value="c5f9889c-0c19-4140-9091-1dc90eab3c5e_substat_7" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_QuestItems" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="2d42ba12-e525-4d8b-ab35-d6196d9d14a6" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Equipment_Contents" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Chest_Weapons" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="2d42ba12-e525-4d8b-ab35-d6196d9d14a6" />
+        <field name="UUID" type="IdTableFieldDefinition" value="0fd34d28-4dea-4896-81d2-dc3d1240f34b" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Equipment_Contents_substat" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Chest_Armor" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="2d42ba12-e525-4d8b-ab35-d6196d9d14a6" />
+        <field name="UUID" type="IdTableFieldDefinition" value="8e345242-d0df-4170-8b19-4d1609cd1099" />
+        <field name="Name" type="NameTableFieldDefinition" value="2d42ba12-e525-4d8b-ab35-d6196d9d14a6_substat_0" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Chest_Accessories" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="ae5a5951-09f7-45e7-a18d-60a300d3d6b6" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Consumables_Contents" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Potions" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="ae5a5951-09f7-45e7-a18d-60a300d3d6b6" />
+        <field name="UUID" type="IdTableFieldDefinition" value="9b771ee8-bf26-4c8b-81d8-1e40c25a805c" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_Consumables_Contents_substat" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Scrolls" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="ae5a5951-09f7-45e7-a18d-60a300d3d6b6" />
+        <field name="UUID" type="IdTableFieldDefinition" value="51a09e40-837a-423b-8f23-c801f69f2fc8" />
+        <field name="Name" type="NameTableFieldDefinition" value="ae5a5951-09f7-45e7-a18d-60a300d3d6b6_substat_0" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Arrows" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="true">
+      <fields>
+        <field name="Using" type="BaseClassTableFieldDefinition" value="ae5a5951-09f7-45e7-a18d-60a300d3d6b6" />
+        <field name="UUID" type="IdTableFieldDefinition" value="a004a9a6-47d1-4617-9874-bb5e05750888" />
+        <field name="Name" type="NameTableFieldDefinition" value="ae5a5951-09f7-45e7-a18d-60a300d3d6b6_substat_1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_Bag_Throwables" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="efad8ddb-89e7-4bb3-8a3e-aa6e3fdfdca1" />
+        <field name="Name" type="NameTableFieldDefinition" value="DEN_Entrance_Trade" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_BagOfHolding" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="4fdb9cf6-afc1-4b99-91a4-1d85df0a8a45" />
+        <field name="Name" type="NameTableFieldDefinition" value="HAV_HarperQuarterMaster_Magic_Trade" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_BagOfHolding" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="fb653629-c7de-48bc-a354-d3baf5afc320" />
+        <field name="Name" type="NameTableFieldDefinition" value="MOO_BugBearvendor_Trade" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_BagOfHolding" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="53b06648-998b-4b5d-a72c-f5297a9dfaeb" />
+        <field name="Name" type="NameTableFieldDefinition" value="WYR_Danthelon_Trader" />
+        <field name="CanMerge" type="EnumerationTableFieldDefinition" value="Yes" enumeration_type_name="YesNo" version="1" />
+        <field name="DropCount" type="StringTableFieldDefinition" value="1,1" />
+        <field name="ObjectCategory" type="StringTableFieldDefinition" value="I_BOHQOL_BagOfHolding" />
+        <field name="Frequency" type="IntegerTableFieldDefinition" value="1" />
+      </fields>
+    </stat_object>
+  </stat_objects>
+</stats>

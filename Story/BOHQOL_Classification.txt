@@ -1,0 +1,1023 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// ============================================================
+// BOHQOL_Classification
+// INIT
+//
+// Classifications discovered after merging the
+// additional Object.stats source. Used to "tag" for our inventory sorting.
+//
+// ============================================================
+
+// ============================================================
+//
+// CLASSIFICATION AUDIT STATUS
+//
+// Native tags now used by BOHQOL_SortWeapons:
+//   BOOK                  -> Books & Notes
+//   ARROW                 -> Arrows
+//   POTION                -> Potions / Elixirs
+//   ALCH_SOLUTION_COATING -> Oils / Poisons
+//   GRENADE               -> normal Throwables
+//   ALCH_INGREDIENT       -> raw Alchemy ingredients
+//   ALCH_EXTRACT          -> processed Alchemy extracts
+//   KEY                   -> Keys / Key Ring
+//   Quest                 -> Quest safety-net classifier
+//
+// Explicit databases intentionally still active:
+//   Scroll                -> spell scrolls
+//   Throwable             -> BOHQOL fallback/exception coverage
+//   QuestItem             -> exhaustive curated Quest & Important coverage
+//
+// Historical Stat lists replaced by native tags are preserved below
+// as plain comments. They are reference data only and define no DB.
+//
+// ============================================================
+
+// ------------------------------------------------------------
+// Arrows
+// ------------------------------------------------------------
+
+// OBJ_ArrowOfAberrationSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfAcid    // legacy Arrow Stat
+// OBJ_ArrowOfAntimagic    // legacy Arrow Stat
+// OBJ_ArrowOfBeastSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfCelestialSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfConstructSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfDarkness    // legacy Arrow Stat
+// OBJ_ArrowOfDetonation    // legacy Arrow Stat
+// OBJ_ArrowOfDispelling    // legacy Arrow Stat
+// OBJ_ArrowOfDragonSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfElementalSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfFeySlaying    // legacy Arrow Stat
+// OBJ_ArrowOfFiendSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfFire    // legacy Arrow Stat
+// OBJ_ArrowOfGiantSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfHumanoidSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfIce    // legacy Arrow Stat
+// OBJ_ArrowOfLightning    // legacy Arrow Stat
+// OBJ_ArrowOfMonstrositySlaying    // legacy Arrow Stat
+// OBJ_ArrowOfOozeSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfPiercing    // legacy Arrow Stat
+// OBJ_ArrowOfPlantSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfRicochet    // legacy Arrow Stat
+// OBJ_ArrowOfSmokepowder    // legacy Arrow Stat
+// OBJ_ArrowOfTeleportation    // legacy Arrow Stat
+// OBJ_ArrowOfUndeadSlaying    // legacy Arrow Stat
+// OBJ_ArrowOfWraithsEmbrace    // legacy Arrow Stat
+// OBJ_BarbedArrow    // legacy Arrow Stat
+
+// ------------------------------------------------------------
+// SPELL SCROLLS
+// ------------------------------------------------------------
+
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ArcaneEye", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ArcaneLock", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Banishment", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_BlackTentacles", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Blight", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Blink", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ChainLightning", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_CircleOfDeath", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Cloudkill", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ConeOfCold", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Confusion", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ConjureElemental", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ConjureMinorElemental", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Counterspell", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_DimensionDoor", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Disintegrate", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_DispelMagic", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_DominatePerson", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Enlarge", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Eyebite", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FireShield_Chill", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FireShield_Warm", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FleshToStone", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FreezingSphere", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_GlobeOfInvulnerability", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_HoldMonster", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_IceKnife", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_IceStorm", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Invisibility_Greater", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_IrresistibleDance", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_LightningBolt", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_MagicWeapon", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_PhantasmalKiller", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_PlanarBinding", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Polymorph", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ResilientSphere", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_SeeInvisibility", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Seeming", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Slow", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Stoneskin", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Sunbeam", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Telekinesis", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_WallOfFire", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_WallOfIce", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_WallOfStone", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scrolls_FindFamiliar", "Scroll");
+DB_BOHQOL_ConsumableType("UNI_TWN_Scroll_FleshToGold", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_AcidArrow", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Aid", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_AnimalFriendship", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_AnimateDead", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_BestowCurse", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Blindness", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Blur", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_BurningHands", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_CharmPerson", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ChillTouch", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ChromaticOrb", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_CloudOfDaggers", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ColorSpray", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_CrownOfMadness", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Darkness", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Darkvision", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_DetectThoughts", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_DisguiseSelf", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ExpeditiousRetreat", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FalseLife", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Fear", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FeatherFall", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FeignDeath", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Fireball", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FireBolt", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FlameBlade", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FlamingSphere", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Fly", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_FogCloud", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_GaseousForm", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_GlyphOfWarding", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Goodberry", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Grease", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_GustOfWind", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Haste", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_HideousLaughter", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_HoldPerson", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_HypnoticPattern", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Invisibility", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Jump", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Knock", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Longstrider", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_MageArmor", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_MagicMissile", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_MirrorImage", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_MistyStep", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_PhantasmalForce", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ProtectionFromEnergy", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ProtectionFromEvilAndGood", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_RayOfEnfeeblement", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_RayOfFrost", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_RayOfSickness", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_RemoveCurse", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Revivify", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Revivify_TrueResurrection", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ScorchingRay", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Shatter", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_ShockingGrasp", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Sleep", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_SleetStorm", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_SpeakWithDead", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_StinkingCloud", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_SummonQuasit", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Thunderwave", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_VampiricTouch", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_Web", "Scroll");
+DB_BOHQOL_ConsumableType("OBJ_Scroll_WitchBolt", "Scroll");
+DB_BOHQOL_ConsumableType("UNI_LOW_BestialCommunionScroll", "Scroll");
+DB_BOHQOL_ConsumableType("UNI_LOW_CurriculumOfStrategyScroll", "Scroll");
+DB_BOHQOL_ConsumableType("UNI_LOW_DethroneScroll", "Scroll");
+
+// ------------------------------------------------------------
+// POTIONS / ELIXIRS / OILS
+// ------------------------------------------------------------
+
+// ALCH_Solution_Elixir_Alertness    // legacy Potion Stat
+// ALCH_Solution_Elixir_ArcaneAcuity    // legacy Potion Stat
+// ALCH_Solution_Elixir_Barkskin    // legacy Potion Stat
+// ALCH_Solution_Elixir_Bloodlust    // legacy Potion Stat
+// ALCH_Solution_Elixir_Concentration    // legacy Potion Stat
+// ALCH_Solution_Elixir_Criticals    // legacy Potion Stat
+// ALCH_Solution_Elixir_Darkvision    // legacy Potion Stat
+// ALCH_Solution_Elixir_Enlarge    // legacy Potion Stat
+// ALCH_Solution_Elixir_Freedom    // legacy Potion Stat
+// ALCH_Solution_Elixir_Meditation    // legacy Potion Stat
+// ALCH_Solution_Elixir_Meditation_Greater    // legacy Potion Stat
+// ALCH_Solution_Elixir_Meditation_Superior    // legacy Potion Stat
+// ALCH_Solution_Elixir_Meditation_Supreme    // legacy Potion Stat
+// ALCH_Solution_Elixir_SeeInvisible    // legacy Potion Stat
+// ALCH_Solution_Elixir_Tadpole    // legacy Potion Stat
+// ALCH_Solution_Oil_AttackBuff    // legacy Potion Stat
+// ALCH_Solution_Oil_Bane    // legacy Potion Stat
+// ALCH_Solution_Oil_Combustion    // legacy Potion Stat
+// ALCH_Solution_Oil_DamageAttackBuff    // legacy Potion Stat
+// ALCH_Solution_Oil_Frost    // legacy Potion Stat
+// ALCH_Solution_Oil_Reduce    // legacy Potion Stat
+// ALCH_Solution_Oil_RemoveResistanceFire    // legacy Potion Stat
+// ALCH_Solution_Oil_Wizardsbane    // legacy Potion Stat
+// ALCH_Solution_Potion_DetectThoughts    // legacy Potion Stat
+// ALCH_Solution_Potion_FeatherFall    // legacy Potion Stat
+// ALCH_Solution_Potion_Flying    // legacy Potion Stat
+// ALCH_Solution_Potion_Jump    // legacy Potion Stat
+// ALCH_Solution_Potion_Remedy    // legacy Potion Stat
+// ALCH_Solution_Potion_Rest_Greater    // legacy Potion Stat
+// ALCH_Solution_Potion_Rest_Lesser    // legacy Potion Stat
+// OBJ_BrinePotion    // legacy Potion Stat
+// OBJ_ParalysisPotion    // legacy Potion Stat
+// OBJ_Potion_Gaseous_Form    // legacy Potion Stat
+// DEN_Apprentice_Antidote    // legacy Potion Stat
+// HAG_Broken_Promises    // legacy Potion Stat
+// HAG_Faltering_Will    // legacy Potion Stat
+// HAG_Heart_Of_Stone    // legacy Potion Stat
+// HAG_Insanitys_Kiss    // legacy Potion Stat
+// HAG_Lost_Time    // legacy Potion Stat
+// HAG_Lovers_Avarice    // legacy Potion Stat
+// HAG_Missing_Pets    // legacy Potion Stat
+// HAG_Mothers_Loathing    // legacy Potion Stat
+// Hag_MysteriousGift    // legacy Potion Stat
+// HAG_Stillborn    // legacy Potion Stat
+// HAG_Wilted_Dreams    // legacy Potion Stat
+// HAV_Ointment_Of_Selune    // legacy Potion Stat
+// OBJ_Antitoxin    // legacy Potion Stat
+// OBJ_BloodPotion_Astarion    // legacy Potion Stat
+// OBJ_BloodPotion_Dragonborn_Acid    // legacy Potion Stat
+// OBJ_BloodPotion_Dragonborn_Fire    // legacy Potion Stat
+// OBJ_BloodPotion_Dragonborn_Ice    // legacy Potion Stat
+// OBJ_BloodPotion_Dragonborn_Lightning    // legacy Potion Stat
+// OBJ_BloodPotion_Dragonborn_Poison    // legacy Potion Stat
+// OBJ_BloodPotion_Dwarf    // legacy Potion Stat
+// OBJ_BloodPotion_Elf    // legacy Potion Stat
+// OBJ_BloodPotion_Githyanki    // legacy Potion Stat
+// OBJ_BloodPotion_Gnome    // legacy Potion Stat
+// OBJ_BloodPotion_HalfElf    // legacy Potion Stat
+// OBJ_BloodPotion_Halfing    // legacy Potion Stat
+// OBJ_BloodPotion_HalfOrc    // legacy Potion Stat
+// OBJ_BloodPotion_Human    // legacy Potion Stat
+// OBJ_BloodPotion_Tiefling    // legacy Potion Stat
+// OBJ_Oil_Of_Sharpness    // legacy Potion Stat
+// OBJ_Oil_Of_Slipperiness    // legacy Potion Stat
+// OBJ_Oil_Of_The_Basilisk    // legacy Potion Stat
+// OBJ_Potion_Bottle_Breath    // legacy Potion Stat
+// OBJ_Potion_Elixir_Of_Health    // legacy Potion Stat
+// OBJ_Potion_Healing    // legacy Potion Stat
+// OBJ_Potion_Healing_Greater    // legacy Potion Stat
+// OBJ_Potion_Healing_Superior    // legacy Potion Stat
+// OBJ_Potion_Healing_Supreme    // legacy Potion Stat
+// OBJ_Potion_Of_Acid_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Animal_Speaking    // legacy Potion Stat
+// OBJ_Potion_Of_Cloud_Giant_Strength    // legacy Potion Stat
+// OBJ_Potion_Of_Cold_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Fire_Breath    // legacy Potion Stat
+// OBJ_Potion_Of_Fire_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Force_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Heroism    // legacy Potion Stat
+// OBJ_Potion_Of_Hill_Giant_Strength    // legacy Potion Stat
+// OBJ_Potion_Of_Invisibility    // legacy Potion Stat
+// OBJ_Potion_Of_Invulnerability    // legacy Potion Stat
+// OBJ_Potion_Of_Lightning_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Necrotic_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Poison_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Psychic_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Radiant_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Shrinking    // legacy Potion Stat
+// OBJ_Potion_Of_Speed    // legacy Potion Stat
+// OBJ_Potion_Of_Thunder_Resistance    // legacy Potion Stat
+// OBJ_Potion_Of_Vitality    // legacy Potion Stat
+// OBJ_Potion_Poison_A    // legacy Potion Stat
+// OBJ_Potion_Sleep    // legacy Potion Stat
+// UND_InjuredGnome_DuergarAntidote    // legacy Potion Stat
+// UNI_LOW_MephitLilquid    // legacy Potion Stat
+
+// DEN_GoblinPoisoning_EthelBrew    // legacy Poison Stat
+// OBJ_AssassinsBlood    // legacy Poison Stat
+// OBJ_BasicPoison    // legacy Poison Stat
+// OBJ_CrawlerMucus    // legacy Poison Stat
+// OBJ_DrowPoison    // legacy Poison Stat
+// OBJ_EssenceOfEther    // legacy Poison Stat
+// OBJ_Malice    // legacy Poison Stat
+// OBJ_PoisonOther    // legacy Poison Stat
+// OBJ_PurpleWormPoison    // legacy Poison Stat
+// OBJ_SerpentVenom    // legacy Poison Stat
+// OBJ_WyvernPoison    // legacy Poison Stat
+// Solution_Toxin_Basic    // legacy Poison Stat
+// UNI_Poison_Brewer    // legacy Poison Stat
+
+// ------------------------------------------------------------
+// THROWABLES
+// ------------------------------------------------------------
+
+DB_BOHQOL_ConsumableType("ALCH_Solution_Grenade_Light", "Throwable");
+DB_BOHQOL_ConsumableType("ALCH_Solution_Grenade_SporesConfusion", "Throwable");
+DB_BOHQOL_ConsumableType("ALCH_Solution_Grenade_SporesHaste", "Throwable");
+DB_BOHQOL_ConsumableType("ALCH_Solution_Grenade_SporesToxic", "Throwable");
+DB_BOHQOL_ConsumableType("ALCH_Solution_Grenade_Web", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Bomb_Orthon", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Bomb_Orthon_override", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Bomb_Sunflash", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_FreezingSphere", "Throwable");
+DB_BOHQOL_ConsumableType("UNI_BrilliantRetort", "Throwable");
+DB_BOHQOL_ConsumableType("GLO_CursedIronFlask", "Throwable");
+DB_BOHQOL_ConsumableType("GLO_CursedIronFlask_Empty", "Throwable");
+DB_BOHQOL_ConsumableType("GRN_Spore_Haste", "Throwable");
+DB_BOHQOL_ConsumableType("LOW_BlushingMermaid_BloodBomb", "Throwable");
+DB_BOHQOL_ConsumableType("LOW_RegenerationPrevention_Grenade", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_AcidBottle", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Bag_BlackPowder", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_BallBearings", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Barrel_Filled_Alcohol", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Barrel_Filled_Oil", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Barrel_Filled_Smokepowder", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Bomb", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Caltrops", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_FireBottle", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Fireworks_Rocket_A", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Fireworks_Rocket_B", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Fireworks_Rocket_C", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_GreaseBottle", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_HolyWaterFlask", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_MindflayerBulb_Caustic", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_MindflayerBulb_Spiked", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_MindflayerBulb_Vacuum", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Net", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_OilBottle", "Throwable");
+DB_BOHQOL_ConsumableType("OBJ_Runepowder_Timebomb", "Throwable");
+DB_BOHQOL_ConsumableType("QUEST_HAG_GrenadeFire", "Throwable");
+DB_BOHQOL_ConsumableType("QUEST_HAV_InfernalGrenade", "Throwable");
+DB_BOHQOL_ConsumableType("UND_OBJ_Runepowder_Barrel", "Throwable");
+DB_BOHQOL_ConsumableType("UND_OBJ_Runepowder_Vial", "Throwable");
+DB_BOHQOL_ConsumableType("WYR_Gortash_Grenade", "Throwable");
+DB_BOHQOL_ConsumableType("WYR_Gortash_PhaseOptimizer", "Throwable");
+DB_BOHQOL_ConsumableType("WYR_Gortash_Reflectoguard", "Throwable");
+
+// ------------------------------------------------------------
+// ALCHEMY INGREDIENTS
+// ------------------------------------------------------------
+
+// ALCH_Ingredient_Herb_BlackOleander    // legacy Alchemy Stat
+// ALCH_Ingredient_Herb_NightOrchid    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_BehirScales    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_BeholderEye    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_CarrionCrawler    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_CloudGiantFinger    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_DivineBoneShard    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_FireAmber    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_FrostSalamander    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_GauthEye    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_HillGiantFinger    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_KiRinHair    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_Nothic    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_PegasusFeather    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_PlanetarFeather    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_PurpleWorm    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_SnakeFang    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_UnicornHorn    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_WyvernStinger    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_XornScales    // legacy Alchemy Stat
+// ALCH_Ingredient_Loot_YellowMuskCreeper    // legacy Alchemy Stat
+// ALCH_Ingredient_Mushroom_ShadowrootSac    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_EagleFeather    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_GremishkaTail    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_HyenaEar    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_IceMephitHeart    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_ImpPatagium    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_IntellectDevourer    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_MagmaMephitHeart    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_MudMephitWing    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_MyconidSpore_Haste    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_MyconidSpore_Poison    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_OchreJellySlime    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_ScryingEye    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_Shadowcursed    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_SpiderGland    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_WoodBark    // legacy Alchemy Stat
+// ALCH_Ingredient_Part_WorgFang    // legacy Alchemy Stat
+// BASE_ALCH_Ingredient    // legacy Alchemy Stat
+// CONS_Herbs_Autumncrocus    // legacy Alchemy Stat
+// CONS_Herbs_Balsam    // legacy Alchemy Stat
+// CONS_Herbs_Belladonna    // legacy Alchemy Stat
+// CONS_Herbs_Daggeroot    // legacy Alchemy Stat
+// CONS_Herbs_Mergrass    // legacy Alchemy Stat
+// CONS_Herbs_Mugwort    // legacy Alchemy Stat
+// CONS_Herbs_Weavemoss    // legacy Alchemy Stat
+// CONS_Herbs_Wispweed    // legacy Alchemy Stat
+// CONS_Mushrooms_Bonecap    // legacy Alchemy Stat
+// CONS_Mushrooms_BullywugTrumpet    // legacy Alchemy Stat
+// CONS_Mushrooms_DragonEggMushroom    // legacy Alchemy Stat
+// CONS_Mushrooms_Nightlight_Piece    // legacy Alchemy Stat
+// CONS_Mushrooms_RoguesMorsel    // legacy Alchemy Stat
+// CONS_Mushrooms_SilvanTruffle    // legacy Alchemy Stat
+// CONS_Mushrooms_SporeTimmask    // legacy Alchemy Stat
+// CONS_Mushrooms_SwarmingToadstool    // legacy Alchemy Stat
+// CONS_Mushrooms_TongueOfMadness    // legacy Alchemy Stat
+// CONS_SporeSac_Haste    // legacy Alchemy Stat
+// CONS_SporeSac_Pacify    // legacy Alchemy Stat
+// LOOT_Underdark_HookHorrorClaw    // legacy Alchemy Stat
+// OBJ_AutomatonPart    // legacy Alchemy Stat
+// OBJ_AutomatonPart_B    // legacy Alchemy Stat
+// OBJ_AutomatonPart_C    // legacy Alchemy Stat
+// OBJ_Crystal_ChasmCreeper    // legacy Alchemy Stat
+// OBJ_Crystal_Laculite    // legacy Alchemy Stat
+// OBJ_Crystal_LolthsCandle    // legacy Alchemy Stat
+// OBJ_Crystal_PurpleFluorite_Shard    // legacy Alchemy Stat
+// OBJ_Crystal_SylvanStone    // legacy Alchemy Stat
+// OBJ_Crystal_Viridian    // legacy Alchemy Stat
+// SCL_Distillery_PurpleWormPoisonIngredient    // legacy Alchemy Stat
+// UNI_CRE_RawSunCrystal    // legacy Alchemy Stat
+// UNI_LOW_HouseOfGrief_MemoryHerb    // legacy Alchemy Stat
+
+// ------------------------------------------------------------
+// ALCHEMY EXTRACTS
+// ------------------------------------------------------------
+
+// ALCH_Extract_AcornTruffle    // legacy Alchemy Stat
+// ALCH_Extract_AutumnCrocus    // legacy Alchemy Stat
+// ALCH_Extract_Balsam    // legacy Alchemy Stat
+// ALCH_Extract_BehirScales    // legacy Alchemy Stat
+// ALCH_Extract_BeholderEye    // legacy Alchemy Stat
+// ALCH_Extract_Belladonna    // legacy Alchemy Stat
+// ALCH_Extract_BlackOleander    // legacy Alchemy Stat
+// ALCH_Extract_Bonecap    // legacy Alchemy Stat
+// ALCH_Extract_BullywugTrumpet    // legacy Alchemy Stat
+// ALCH_Extract_CarrionCrawler    // legacy Alchemy Stat
+// ALCH_Extract_ChasmCreeper    // legacy Alchemy Stat
+// ALCH_Extract_CloudGiantFinger    // legacy Alchemy Stat
+// ALCH_Extract_ConstructPart    // legacy Alchemy Stat
+// ALCH_Extract_CorpseRose    // legacy Alchemy Stat
+// ALCH_Extract_Daggeroot    // legacy Alchemy Stat
+// ALCH_Extract_DivineBoneShard    // legacy Alchemy Stat
+// ALCH_Extract_DragonEggMushroom    // legacy Alchemy Stat
+// ALCH_Extract_EagleFeather    // legacy Alchemy Stat
+// ALCH_Extract_FireAmber    // legacy Alchemy Stat
+// ALCH_Extract_FrostSalamander    // legacy Alchemy Stat
+// ALCH_Extract_GauthEye    // legacy Alchemy Stat
+// ALCH_Extract_GremishkaTail    // legacy Alchemy Stat
+// ALCH_Extract_HillGiantFinger    // legacy Alchemy Stat
+// ALCH_Extract_HookHorrorClaw    // legacy Alchemy Stat
+// ALCH_Extract_HyenaEar    // legacy Alchemy Stat
+// ALCH_Extract_IceMephitHeart    // legacy Alchemy Stat
+// ALCH_Extract_ImpPatagium    // legacy Alchemy Stat
+// ALCH_Extract_IntellectDevourer    // legacy Alchemy Stat
+// ALCH_Extract_KiRinHair    // legacy Alchemy Stat
+// ALCH_Extract_Laculite    // legacy Alchemy Stat
+// ALCH_Extract_LolthsCandle    // legacy Alchemy Stat
+// ALCH_Extract_MagmaMephitHeart    // legacy Alchemy Stat
+// ALCH_Extract_Mergrass    // legacy Alchemy Stat
+// ALCH_Extract_MudMephitWing    // legacy Alchemy Stat
+// ALCH_Extract_Mugwort    // legacy Alchemy Stat
+// ALCH_Extract_MyconidSpore_Confusion    // legacy Alchemy Stat
+// ALCH_Extract_MyconidSpore_Haste    // legacy Alchemy Stat
+// ALCH_Extract_MyconidSpore_Poison    // legacy Alchemy Stat
+// ALCH_Extract_NightOrchid    // legacy Alchemy Stat
+// ALCH_Extract_Nightlight    // legacy Alchemy Stat
+// ALCH_Extract_NothicEye    // legacy Alchemy Stat
+// ALCH_Extract_OchreJellySlime    // legacy Alchemy Stat
+// ALCH_Extract_PegasusFeather    // legacy Alchemy Stat
+// ALCH_Extract_PlanetarFeather    // legacy Alchemy Stat
+// ALCH_Extract_PurpleWorm    // legacy Alchemy Stat
+// ALCH_Extract_RegenerationPreventionGrenade    // legacy Alchemy Stat
+// ALCH_Extract_RoguesMorsel    // legacy Alchemy Stat
+// ALCH_Extract_ScryingEye    // legacy Alchemy Stat
+// ALCH_Extract_Shadowcursed    // legacy Alchemy Stat
+// ALCH_Extract_ShadowrootSac    // legacy Alchemy Stat
+// ALCH_Extract_SnakeFang    // legacy Alchemy Stat
+// ALCH_Extract_SpiderGland    // legacy Alchemy Stat
+// ALCH_Extract_SwarmingToadstool    // legacy Alchemy Stat
+// ALCH_Extract_SylvanStone    // legacy Alchemy Stat
+// ALCH_Extract_TongueOfMadness    // legacy Alchemy Stat
+// ALCH_Extract_UnicornHorn    // legacy Alchemy Stat
+// ALCH_Extract_ViridianCrystal    // legacy Alchemy Stat
+// ALCH_Extract_Weavemoss    // legacy Alchemy Stat
+// ALCH_Extract_Wispweed    // legacy Alchemy Stat
+// ALCH_Extract_WoodBark    // legacy Alchemy Stat
+// ALCH_Extract_WorgFang    // legacy Alchemy Stat
+// ALCH_Extract_WyvernStinger    // legacy Alchemy Stat
+// ALCH_Extract_XornScales    // legacy Alchemy Stat
+// ALCH_Extract_YellowMuskCreeper    // legacy Alchemy Stat
+// BASE_ALCH_Extract_Air    // legacy Alchemy Stat
+// BASE_ALCH_Extract_Earth    // legacy Alchemy Stat
+// BASE_ALCH_Extract_Fey    // legacy Alchemy Stat
+// BASE_ALCH_Extract_Fire    // legacy Alchemy Stat
+// BASE_ALCH_Extract_Shadow    // legacy Alchemy Stat
+// BASE_ALCH_Extract_Water    // legacy Alchemy Stat
+
+// ------------------------------------------------------------
+// BOOKS / NOTES
+//
+// CURRENT CLASSIFICATION:
+//   Uses Larian's BOOK tag directly in BOHQOL_SortWeapons and
+//   BOHQOL_TestBookRead:
+//
+//   (TAG)BOOK_8a8e253a-c081-45a1-9fa2-91b6901dc568
+//
+// LEGACY / FALLBACK CLASSIFICATION:
+//   The 233 historical BookItem Stat names are preserved below as plain
+//   comment data rather than executable DB calls.
+//
+//   To restore an entry later, use the Stat name below in a
+//   DB_BOHQOL_BookItem entry.
+//
+//   Keep this list as a reference/fallback for:
+//     - BOOK-tagged items that need investigation,
+//     - missing/untagged books or notes discovered during testing,
+//     - future explicit classification exceptions.
+//
+// Original list basis:
+//   Descendants of _Book with RootTemplate, excluding _MagicScroll.
+// ------------------------------------------------------------
+
+// BOOK_Alchemy_AlchemySimplePoison
+// BOOK_Alchemy_Barkskin
+// BOOK_Alchemy_Coatings
+// BOOK_Alchemy_ElixirArcaneCultivation
+// BOOK_Alchemy_ExtractTypes
+// BOOK_Alchemy_ExtractsRuleOfThree
+// BOOK_Alchemy_HealingPotion
+// BOOK_Alchemy_HealingPotionGreater
+// BOOK_Alchemy_LightFlask
+// BOOK_Alchemy_PotionAnimalSpeaking
+// BOOK_Alchemy_PotionsVsElixirs
+// BOOK_Alchemy_SerpentVenom
+// BOOK_Alchemy_ToxinBasic
+// BOOK_GEN_FablesofFaerun1
+// BOOK_GEN_FablesofFaerun2
+// BOOK_GEN_FablesofFaerun3
+// BOOK_GEN_Faction_DruidFiction1
+// BOOK_GEN_Faction_DruidFiction2
+// BOOK_GEN_Faction_DruidFiction3
+// BOOK_GEN_Faction_DruidFiction4
+// BOOK_GEN_Faction_EmeraldEnclaveLogBook
+// BOOK_GEN_Faction_OrderGauntletTenets
+// BOOK_GEN_Faction_ThievesGuildHiddenRulers
+// BOOK_GEN_Factions_FlamingFistPoster
+// BOOK_GEN_Factions_LeadershipOfZhentarim
+// BOOK_GEN_Factions_OriginsofZhentarim
+// BOOK_GEN_Factions_SecretSocieties1
+// BOOK_GEN_Gods_AforAzuth1
+// BOOK_GEN_Gods_AforAzuth11
+// BOOK_GEN_Gods_AforAzuth2
+// BOOK_GEN_Gods_AforAzuth3
+// BOOK_GEN_Gods_AforAzuth6
+// BOOK_GEN_Gods_AforAzuth7
+// BOOK_GEN_Gods_AforAzuth9
+// BOOK_GEN_Gods_BhaalSongbook
+// BOOK_GEN_Gods_DeadThreeCase
+// BOOK_GEN_Gods_DeathandDivinityJergal
+// BOOK_GEN_Gods_HouseholdPrayer1
+// BOOK_GEN_Gods_LoviatarScreed
+// BOOK_GEN_Gods_SeaBitchShanty
+// BOOK_GEN_Gods_SharChildrenStories
+// BOOK_GEN_Gods_SharSeluneConflict
+// BOOK_GEN_History_AbsoluteMonsterAlliance
+// BOOK_GEN_History_BhaalspawnMissives
+// BOOK_GEN_History_BhaalspawnTestimonials
+// BOOK_GEN_History_ElturelDoomDocument
+// BOOK_GEN_History_FFElturelTranscript
+// BOOK_GEN_History_FallofNetherilPlay
+// BOOK_GEN_History_MythicalBeastsPrimer001
+// BOOK_GEN_History_NhallothRuinsNetheril
+// BOOK_GEN_History_SarevokDiaryEncounter
+// BOOK_GEN_History_SensibleLiving12
+// BOOK_GEN_History_SunderingOghmaLetter
+// BOOK_GEN_History_WondersofPhandalin
+// BOOK_GEN_Planes_AdventuresMorrowAstral
+// BOOK_GEN_Planes_AdventuresMorrowElementalAir
+// BOOK_GEN_Planes_AdventuresMorrowFeywild
+// BOOK_GEN_Planes_AdventuresMorrowRavenloft
+// BOOK_GEN_Planes_Annihilation
+// BOOK_GEN_Planes_AvernusSurvivalGuide
+// BOOK_GEN_Planes_CityofJudgment
+// BOOK_GEN_Planes_FiendishAlchemy
+// BOOK_GEN_Planes_FiendishBestiary
+// BOOK_GEN_Planes_SoulCoinsTreatise
+// BOOK_GEN_Planes_TheHellsUnleashed
+// BOOK_GEN_Planes_Yeenoghu
+// BOOK_GEN_Races_CurseofVampyr
+// BOOK_GEN_Races_DrowSeldarineSchism
+// BOOK_GEN_Races_DuergarOriginChant
+// BOOK_GEN_Races_FablesofFaerun4
+// BOOK_GEN_Races_FablesofFaerun5
+// BOOK_GEN_Races_GoblinPoetry
+// BOOK_GEN_Races_GoblinsMockingMaglubiyet
+// BOOK_GEN_Races_HalflingRhymes1
+// BOOK_GEN_Races_IllithidMagicLore
+// BOOK_GEN_Races_OralHistories_MFGith
+// BOOK_GEN_Races_PurgedPalate1
+// BOOK_GEN_Races_RealmAccordingToBumpo001
+// BOOK_GEN_Races_ScandalousCambionPlay
+// BOOK_GEN_Races_ScandalousCambionPlayInterview
+// BOOK_GEN_Races_SoothsayerAccount
+// BOOK_GEN_Races_TieflingAutobiography
+// BOOK_GEN_World_AdventuresofBalduran001
+// BOOK_GEN_World_AnnalsofBGOrigin
+// BOOK_GEN_World_ApproachableEast1
+// BOOK_GEN_World_ApproachableEast2
+// BOOK_GEN_World_ApproachableEast3
+// BOOK_GEN_World_ApproachableEast4
+// BOOK_GEN_World_ApproachableEast5
+// BOOK_GEN_World_ApproachableEast6
+// BOOK_GEN_World_ApproachableEast7
+// BOOK_GEN_World_BGPeacockLetter
+// BOOK_GEN_World_CandlekeepEels
+// BOOK_GEN_World_FringePhilosophy5
+// BOOK_GEN_World_GatekeeperPamphlet
+// BOOK_GEN_World_GuideLowerCityInns
+// BOOK_GEN_World_GuideOnHags001
+// BOOK_GEN_World_GuideOnHags002
+// BOOK_GEN_World_GuideOuterCity
+// BOOK_GEN_World_GuideRisenRoad
+// BOOK_GEN_World_GuideToAvernus
+// BOOK_GEN_World_InfernalContractsAndBargains
+// BOOK_GEN_World_IntroToTheWeave
+// BOOK_GEN_World_JourneyThroughChult
+// BOOK_GEN_World_MatronSpeechDrowTenets
+// BOOK_GEN_World_MetatextResurrection
+// BOOK_GEN_World_MissingStatueNotice
+// BOOK_GEN_World_OralHistories_LuirenAbeirSpellplague
+// BOOK_GEN_World_OralHistories_OathbreakerPaladins
+// BOOK_GEN_World_SensibleLiving4
+// BOOK_GEN_World_TalesOfTheHells
+// BOOK_GLO_Alchemy_CrawlerMucus
+// BOOK_GLO_Alchemy_DrowPoison
+// BOOK_GLO_Alchemy_ElixirDarkvision
+// BOOK_GLO_Alchemy_ElixirNecroticResistance
+// BOOK_GLO_Alchemy_LesserOilSharpness
+// BOOK_GLO_Alchemy_PotionMindReading
+// BOOK_GLO_Alchemy_SuperiorPotionHealing
+// BOOK_GLO_Alchemy_WizardsbaneOil
+// BOOK_GLO_Alchemy_WyvernToxin
+// BOOK_GLO_GeneralLoreBook_ADreamOfGears
+// BOOK_GLO_GeneralLoreBook_AFableOfModrons
+// BOOK_GLO_GeneralLoreBook_AnArchdukesLeadership1
+// BOOK_GLO_GeneralLoreBook_AnArchdukesLeadership2
+// BOOK_GLO_GeneralLoreBook_AnArchdukesLeadership3
+// BOOK_GLO_GeneralLoreBook_AnArchdukesLeadership4
+// BOOK_GLO_GeneralLoreBook_AnArchdukesLeadership5
+// BOOK_GLO_GeneralLoreBook_AnArchdukesLeadership6
+// BOOK_GLO_GeneralLoreBook_BalduranFoundsACity
+// BOOK_GLO_GeneralLoreBook_BaldursGateHistory01
+// BOOK_GLO_GeneralLoreBook_BaldursGateHistory02
+// BOOK_GLO_GeneralLoreBook_ChildrenOfStone
+// BOOK_GLO_GeneralLoreBook_CompassionAndEndurance
+// BOOK_GLO_GeneralLoreBook_CorellonLarethian
+// BOOK_GLO_GeneralLoreBook_CorsairsOfLuskan
+// BOOK_GLO_GeneralLoreBook_CrimesOfTheMoonmaiden
+// BOOK_GLO_GeneralLoreBook_DragonbornButler
+// BOOK_GLO_GeneralLoreBook_EilistraeeLadySilverhair
+// BOOK_GLO_GeneralLoreBook_GatesPubCrawlGuide
+// BOOK_GLO_GeneralLoreBook_GondAndTheGondians
+// BOOK_GLO_GeneralLoreBook_GondianResearchReport
+// BOOK_GLO_GeneralLoreBook_GuideToGoblinoids
+// BOOK_GLO_GeneralLoreBook_HarvestOfMemory
+// BOOK_GLO_GeneralLoreBook_HelmDogmaLore
+// BOOK_GLO_GeneralLoreBook_JudgeOfTheDamned
+// BOOK_GLO_GeneralLoreBook_KelemvorBlessings
+// BOOK_GLO_GeneralLoreBook_KingpinDossiers
+// BOOK_GLO_GeneralLoreBook_KoboldsArePeopleToo
+// BOOK_GLO_GeneralLoreBook_LaduguerTheExile
+// BOOK_GLO_GeneralLoreBook_LegendsOfTheSeaBitch
+// BOOK_GLO_GeneralLoreBook_LowerCityAndUpperCity
+// BOOK_GLO_GeneralLoreBook_MatingPracticesOfDragonborn
+// BOOK_GLO_GeneralLoreBook_MoradinTheSoulForger
+// BOOK_GLO_GeneralLoreBook_MotherOfHalflings
+// BOOK_GLO_GeneralLoreBook_MysteriousMoonshae
+// BOOK_GLO_GeneralLoreBook_OldBaldursMouthLettersPage
+// BOOK_GLO_GeneralLoreBook_PatriarsAHomegrownAristocracy
+// BOOK_GLO_GeneralLoreBook_QueenOfRavens
+// BOOK_GLO_GeneralLoreBook_ReadingTheFog
+// BOOK_GLO_GeneralLoreBook_ScaledScionsOfAbeir
+// BOOK_GLO_GeneralLoreBook_SeluneHealingLore
+// BOOK_GLO_GeneralLoreBook_ShatteringMyChains
+// BOOK_GLO_GeneralLoreBook_TalesOfTheOrcFather
+// BOOK_GLO_GeneralLoreBook_TheDucalCouncil
+// BOOK_GLO_GeneralLoreBook_TheFlamingFist
+// BOOK_GLO_GeneralLoreBook_TheGnomefather
+// BOOK_GLO_GeneralLoreBook_TheHalfOrcCannibalsAmongYou
+// BOOK_GLO_GeneralLoreBook_TheLadyOfLuck
+// BOOK_GLO_GeneralLoreBook_TheLibelOfHalfOrcBarbarism
+// BOOK_GLO_GeneralLoreBook_TheQuartaSune
+// BOOK_GLO_GeneralLoreBook_TheWatchAndTheSteelWatch
+// BOOK_GLO_GeneralLoreBook_TyrHandLore
+// BOOK_GLO_GeneralLoreBook_UndercityLegends
+// BOOK_GLO_GeneralLoreBook_VampirismCurseOrDisease
+// BOOK_GLO_GeneralLoreBook_WallOfTheFaithless
+// BOOK_GLO_GeneralLoreBook_WhenTheCircusCameToTown
+// BOOK_GLO_GeneralLoreBook_You'veGotFriendsInTheGuild
+// BOOK_GLO_SharessCaress_SmutLibrary1
+// BOOK_GLO_SharessCaress_SmutLibrary2
+// BOOK_GLO_SharessCaress_SmutLibrary3
+// BOOK_GLO_SharessCaress_SmutLibrary4
+// BOOK_GLO_SharessCaress_SmutLibrary5
+// BOOK_GLO_SharessCaress_SmutLibrary6
+// BOOK_GLO_SharessCaress_SmutLibrary7
+// BOOK_GLO_SorcerousSundries_KarsusStory
+// BOOK_LOW_Generallorebook_BaldursBones
+// BOOK_LOW_Generallorebook_Talis
+// BOOK_LOW_SorcerousSundries_BookByElminster1
+// BOOK_LOW_SorcerousSundries_BookByElminster2
+// BOOK_LOW_SorcerousSundries_BookByElminster3
+// BOOK_LOW_SorcerousSundries_EnchantmentsManual
+// BOOK_LOW_SorcerousSundries_MagicAnomalies1
+// BOOK_LOW_SorcerousSundries_MagicAnomalies2
+// BOOK_LOW_SorcerousSundries_MagicAnomalies3
+// BOOK_LOW_SorcerousSundries_MagicHistory1
+// BOOK_LOW_SorcerousSundries_MagicHistory2
+// BOOK_LOW_SorcerousSundries_MagicHistory3
+// BOOK_LOW_SorcerousSundries_MagicHistory4
+// BOOK_LOW_SorcerousSundries_NotableWizards1
+// BOOK_LOW_SorcerousSundries_NotableWizards2
+// BOOK_LOW_SorcerousSundries_NotableWizards3
+// BOOK_LOW_SorcerousSundries_PitfallsOfLichdom
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic1Abjuration|
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic2Conjuration
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic3Divination
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic4Enchantment
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic5Evocation
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic6Illusion
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic7Necromancy
+// BOOK_LOW_SorcerousSundries_SchoolsOfMagic8Transmutation
+// BOOK_LOW_SorcerousSundries_TheApprenticesCompanion1
+// BOOK_LOW_SorcerousSundries_TheApprenticesCompanion2
+// BOOK_LOW_SorcerousSundries_TheApprenticesCompanion3
+// BOOK_LOW_SorcerousSundries_TheApprenticesCompanion4
+// BOOK_LOW_SorcerousSundries_TheApprenticesCompanion5
+// BOOK_LOW_SorcerousSundries_WeaveLore
+// BOOK_LOW_SteelWatchFoundry_TalisTactics
+// CRA_Fisher_LoveLetter
+// LOW_SorcerousSundries_RareTome
+// OBJ_Book
+// OBJ_Book_Paladin
+// OBJ_Book_Races_DrowSeldarineSchism
+// OBJ_Book_Valuable
+// UNI_LOW_BaldursMouth_ArticleBlock
+// UNI_LOW_BaldursMouth_DailyPaper
+// UNI_LOW_BaldursMouth_FinishedBlock
+// UNI_LOW_BaldursMouth_MasterBlock
+// UNI_SHA_SharBook_1
+// UNI_SHA_SharBook_2
+// UNI_SHA_SharBook_3
+// UNI_SHA_SharBook_4
+// UNI_SHA_SharBook_5
+// UNI_SHA_SharBook_6
+// ------------------------------------------------------------
+// KEYS
+//
+// Runtime Stat classification.
+// PUZ_Key covers ordinary keys that share the generic key stat.
+// Explicit descendants are included for keys that use their own
+// Object Stat.
+//
+// SHA_BrokenLever is intentionally excluded until verified.
+// ------------------------------------------------------------
+
+// PUZ_Key    // legacy Key Stat
+// UND_SeluneOutpost_Key    // legacy Key Stat
+// QUEST_CRE_CaptainsBarrierKey    // legacy Key Stat
+// LOW_HouseOfHope_BoudoirKey    // legacy Key Stat
+
+// ------------------------------------------------------------
+// QUEST & IMPORTANT ITEMS
+//
+// Exhaustive first-pass whitelist built from:
+//   GustavDev Object.stats
+//   Gustav Object.stats
+//   SharedDev Object.stats
+//   Shared Object.stats
+//
+// All direct QUEST_/Quest_ Object Stats were audited.
+// Quest-marked keys remain in DB_BOHQOL_KeyItem.
+// World objects, sockets, helpers, mechanisms, doors, altars,
+// destructibles, and other non-inventory quest objects are excluded.
+// Non-QUEST unique quest/puzzle/crafting inventory objects found in
+// the same four dumps are included below as Important Items.
+// ------------------------------------------------------------
+
+DB_BOHQOL_QuestItem("OBJ_GithyankiEgg");
+DB_BOHQOL_QuestItem("QUEST_Boo");
+DB_BOHQOL_QuestItem("QUEST_CaptureFlask");
+DB_BOHQOL_QuestItem("QUEST_FOR_Adamant");
+DB_BOHQOL_QuestItem("QUEST_FOR_AdamantBar");
+DB_BOHQOL_QuestItem("Quest_FOR_BrokenSpear_Head");
+DB_BOHQOL_QuestItem("Quest_FOR_BrokenSpear_Shaft");
+DB_BOHQOL_QuestItem("QUEST_FOR_OwlbearEgg");
+DB_BOHQOL_QuestItem("QUEST_FOR_SussurBark");
+DB_BOHQOL_QuestItem("QUEST_GOB_SuspiciousMeat");
+DB_BOHQOL_QuestItem("QUEST_HAG_Grenade");
+DB_BOHQOL_QuestItem("QUEST_HAG_GrenadeFire");
+DB_BOHQOL_QuestItem("QUEST_HAG_HagHair_Charisma");
+DB_BOHQOL_QuestItem("QUEST_HAG_HagHair_Constitution");
+DB_BOHQOL_QuestItem("QUEST_HAG_HagHair_Dexterity");
+DB_BOHQOL_QuestItem("QUEST_HAG_HagHair_Intelligence");
+DB_BOHQOL_QuestItem("QUEST_HAG_HagHair_Strength");
+DB_BOHQOL_QuestItem("QUEST_HAG_HagHair_Wisdom");
+DB_BOHQOL_QuestItem("QUEST_HAV_InfernalGrenade");
+DB_BOHQOL_QuestItem("QUEST_LOW_ForsakenSkull");
+DB_BOHQOL_QuestItem("QUEST_LOW_Infernal_Diamond");
+DB_BOHQOL_QuestItem("QUEST_LOW_JannathPortrait");
+DB_BOHQOL_QuestItem("QUEST_LOW_OskarPortrait");
+DB_BOHQOL_QuestItem("QUEST_PortableHole");
+DB_BOHQOL_QuestItem("QUEST_SHA_TrialGem");
+DB_BOHQOL_QuestItem("Quest_UND_Moonlantern_Broken");
+DB_BOHQOL_QuestItem("QUEST_WYR_FatherCarrionJar");
+DB_BOHQOL_QuestItem("QUEST_WYR_GemlessRing");
+DB_BOHQOL_QuestItem("QUEST_WYR_RinglessGemstone");
+DB_BOHQOL_QuestItem("UNI_CONT_DEVIL_PuzzleBox_A");
+DB_BOHQOL_QuestItem("UNI_CRE_DawnmasterCrest");
+DB_BOHQOL_QuestItem("UNI_CRE_LathanderBloodGem");
+DB_BOHQOL_QuestItem("UNI_CRE_MisCutCrystal");
+DB_BOHQOL_QuestItem("UNI_CRE_RawSunCrystal");
+DB_BOHQOL_QuestItem("UNI_HAG_Wand_SummonHusband");
+DB_BOHQOL_QuestItem("UNI_LOOT_AdamantineForge_LongswordMold");
+DB_BOHQOL_QuestItem("UNI_LOOT_AdamantineForge_MaceMold");
+DB_BOHQOL_QuestItem("UNI_LOOT_AdamantineForge_ScaleMold");
+DB_BOHQOL_QuestItem("UNI_LOOT_AdamantineForge_ScimitarMold");
+DB_BOHQOL_QuestItem("UNI_LOOT_AdamantineForge_ShieldMold");
+DB_BOHQOL_QuestItem("UNI_LOOT_AdamantineForge_SplintMold");
+DB_BOHQOL_QuestItem("UNI_LOW_BaldursMouth_ArticleBlock");
+DB_BOHQOL_QuestItem("UNI_LOW_BaldursMouth_FinishedBlock");
+DB_BOHQOL_QuestItem("UNI_LOW_BaldursMouth_MasterBlock");
+DB_BOHQOL_QuestItem("UNI_LOW_HouseOfGrief_MemoryHerb");
+DB_BOHQOL_QuestItem("UNI_LOW_SteelWatchFoundry_WatcherArm");
+DB_BOHQOL_QuestItem("UNI_LOW_SteelWatchFoundry_WatcherHarpoonCrossbowDiagram");
+DB_BOHQOL_QuestItem("UNI_LOW_SteelWatchtFoundry_WatcherTargetingModule");
+DB_BOHQOL_QuestItem("UNI_MagicStaff_Part_Crystal");
+DB_BOHQOL_QuestItem("UNI_MagicStaff_Part_Helve");
+DB_BOHQOL_QuestItem("UNI_MagicStaff_Part_Top");
+DB_BOHQOL_QuestItem("UNI_PUZ_MithralOre");
+DB_BOHQOL_QuestItem("UNI_UND_NarrativeLoot_BlingdenstoneWine");
+
+// ============================================================
+// MISCELLANEOUS / VENDOR CLUTTER
+//
+// Positive classification only.
+//
+// These are explicitly identified mundane/vendor-value items.
+// An item NOT appearing in this database is NOT automatically
+// considered Miscellaneous.
+//
+// IMPORTANT:
+// Do not replace this database with broad checks against:
+//   - ValueUUID
+//   - LootTreasure
+//   - Junk
+//   - _LuxuryItem
+//   - Common rarity
+//   - generic vendor tags
+//
+// Those properties also occur on useful/special items.
+// ============================================================
+
+
+// ------------------------------------------------------------
+// GENERIC GEMS / PRECIOUS STONES
+//
+// Descendants shown from OBJ_GemGeneric.
+// These are ordinary vendor-value gemstones.
+//
+// NOTE:
+// Do NOT classify items merely because their name contains
+// "Gem". Special gems such as quest/puzzle items are handled
+// elsewhere.
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_Agate");
+DB_BOHQOL_MiscItem("OBJ_Malachite");
+DB_BOHQOL_MiscItem("OBJ_Onyx");
+DB_BOHQOL_MiscItem("OBJ_Bloodstone");
+DB_BOHQOL_MiscItem("OBJ_Jade");
+DB_BOHQOL_MiscItem("OBJ_Pearl");
+DB_BOHQOL_MiscItem("OBJ_Amethyst");
+DB_BOHQOL_MiscItem("OBJ_Topaz");
+DB_BOHQOL_MiscItem("OBJ_Peridot");
+DB_BOHQOL_MiscItem("OBJ_Sapphire");
+
+
+// ------------------------------------------------------------
+// GOBLETS / CHALICES
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_Goblet_Rich_Bronze");
+DB_BOHQOL_MiscItem("OBJ_Goblet_Rich_Silver");
+DB_BOHQOL_MiscItem("OBJ_Goblet_Rich_Gold");
+
+DB_BOHQOL_MiscItem("OBJ_Chalice_Bronze");
+DB_BOHQOL_MiscItem("OBJ_Chalice_Bronze_B");
+DB_BOHQOL_MiscItem("OBJ_Chalice_Silver");
+DB_BOHQOL_MiscItem("OBJ_Chalice_Silver_B");
+DB_BOHQOL_MiscItem("OBJ_Chalice_Gold");
+DB_BOHQOL_MiscItem("OBJ_Chalice_Gold_B");
+
+DB_BOHQOL_MiscItem("OBJ_Chalice_Glass");
+
+
+// ------------------------------------------------------------
+// CUPS / MUGS
+//
+// Generic empty/decorative drinking vessels.
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_Cup");
+DB_BOHQOL_MiscItem("OBJ_Cup_Rich");
+
+DB_BOHQOL_MiscItem("Cup_Wood");
+
+DB_BOHQOL_MiscItem("Cup_Metal");
+DB_BOHQOL_MiscItem("Cup_Metal_B");
+DB_BOHQOL_MiscItem("Cup_Metal_C");
+DB_BOHQOL_MiscItem("Cup_Metal_D");
+DB_BOHQOL_MiscItem("Cup_Metal_E");
+DB_BOHQOL_MiscItem("Cup_Metal_F");
+
+DB_BOHQOL_MiscItem("Cup_Mug_Metal");
+
+DB_BOHQOL_MiscItem("Cup_Glass_A");
+DB_BOHQOL_MiscItem("Cup_Glass_B");
+
+DB_BOHQOL_MiscItem("Cup_Silver");
+DB_BOHQOL_MiscItem("Cup_Silver_B");
+DB_BOHQOL_MiscItem("Cup_Silver_C");
+DB_BOHQOL_MiscItem("Cup_Silver_D");
+DB_BOHQOL_MiscItem("Cup_Silver_E");
+DB_BOHQOL_MiscItem("Cup_Silver_F");
+DB_BOHQOL_MiscItem("Cup_Silver_G");
+DB_BOHQOL_MiscItem("Cup_Silver_H");
+
+
+// ------------------------------------------------------------
+// ORDINARY PLATES
+//
+// Ceramic variants are intentionally NOT included:
+// OBJ_Plate_Ceramic / OBJ_Plate_Ceramic_B resolve to
+// CONS_GEN_Food_Plate_* and therefore aren't being treated as
+// generic vendor clutter.
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_Plate_Metal");
+DB_BOHQOL_MiscItem("OBJ_Plate_Metal_B");
+
+
+// ------------------------------------------------------------
+// SILVER DINING PLATES
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("DiningPlate_Silver_A");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_B");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_C");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_D");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_E");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_F");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_G");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_H");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_I");
+DB_BOHQOL_MiscItem("DiningPlate_Silver_J");
+
+
+// ------------------------------------------------------------
+// BOWLS
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_Bowl");
+
+
+// ------------------------------------------------------------
+// RICH / VALUABLE CUTLERY
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_KitchenwareRich_Cutlery_Fork_A");
+DB_BOHQOL_MiscItem("OBJ_KitchenwareRich_Cutlery_Fork_Silver");
+
+DB_BOHQOL_MiscItem("OBJ_KitchenwareRich_Cutlery_Knife_A");
+DB_BOHQOL_MiscItem("OBJ_KitchenwareRich_Cutlery_Knife_Silver");
+
+DB_BOHQOL_MiscItem("OBJ_KitchenwareRich_Cutlery_Spoon_A");
+DB_BOHQOL_MiscItem("OBJ_KitchenwareRich_Cutlery_Spoon_Silver");
+
+
+// ------------------------------------------------------------
+// GENERIC PAINTINGS
+//
+// These are the generic landscape/value paintings visible in
+// the Shared Object.stats family.
+//
+// Specifically named/narrative paintings are NOT included.
+// ------------------------------------------------------------
+
+DB_BOHQOL_MiscItem("OBJ_PaintingCanvas");
+
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_A");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_B");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_C");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_D");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_E");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_F");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_G");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_H");
+DB_BOHQOL_MiscItem("OBJ_Painting_Landscape_I");
+
+DB_BOHQOL_MiscItem("OBJ_Painting");
+KBSECTION
+
+EXITSECTION
+
+ENDEXITSECTION

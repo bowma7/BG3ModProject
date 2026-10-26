@@ -1,0 +1,186 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// BOHQOL - AUTOMATIC SORT CONTROLLER
+//
+// Controls automatic sorting behavior.
+//
+// Manual Bag Actions do NOT use this file.
+// FULL / SAFE / DISABLED affect automatic sorting only.
+//
+// Triggers:
+//   BAG OPEN  -> sort qualifying loose character inventory.
+//   ENTER BAG -> sort only the item placed directly into the
+//                BOHQOL root Bag of Holding.
+//
+// Target ensurance and cache recovery are handled by the public
+// sorting entry points.
+//
+// Manual Bag Actions remain available in every mode.
+// ============================================================
+
+
+// ============================================================
+// AUTO SORT - BAG OPEN + FULL
+// ============================================================
+
+IF
+TemplateOpening(
+    (ITEMROOT)BOHQOL_BagOfHolding_568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90,
+    _Bag,
+    _Player
+)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_BagOpen",
+    1
+)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_ModeFull",
+    1
+)
+THEN
+DebugBreak("BOHQOL_AUTOSORT: BAG OPEN + FULL - RUNNING SORT ALL");
+
+PROC_BOHQOL_SortAll(
+    (GUIDSTRING)_Player
+);
+
+
+// ============================================================
+// AUTO SORT - BAG OPEN + SAFE
+// ============================================================
+
+IF
+TemplateOpening(
+    (ITEMROOT)BOHQOL_BagOfHolding_568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90,
+    _Bag,
+    _Player
+)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_BagOpen",
+    1
+)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_ModeSafe",
+    1
+)
+THEN
+DebugBreak("BOHQOL_AUTOSORT: BAG OPEN + SAFE - RUNNING SAFE SORT");
+
+PROC_BOHQOL_SortSafe(
+    (GUIDSTRING)_Player
+);
+
+
+// ============================================================
+// AUTO SORT - ENTER BAG + FULL
+//
+// Fires only when an item is added directly to the BOHQOL root Bag.
+//
+// This path processes ONE item only. It never calls an inventory-
+// wide Sort All.
+//
+// The shared sorter independently reconfirms that _Item remains
+// directly owned by _Bag before moving it.
+// ============================================================
+
+IF
+AddedTo(_Item, _Bag, _AddType)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+IsItem(_Item, 1)
+AND
+GetDirectInventoryOwner(_Item, _Bag)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_EnterBag",
+    1
+)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_ModeFull",
+    1
+)
+THEN
+DebugBreak("BOHQOL_AUTOSORT: ENTER BAG + FULL - SORTING ITEM");
+
+PROC_BOHQOL_AutoSortEnterFull(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+);
+
+
+// ============================================================
+// AUTO SORT - ENTER BAG + SAFE
+//
+// SAFE policy is implemented centrally in BOHQOL_SortWeapons.
+//
+// Current protected SAFE categories:
+//   Quest / Important
+//   Throwables
+//
+// Unknown/unclassified items have no matching classification and
+// remain at the Bag root.
+// ============================================================
+
+IF
+AddedTo(_Item, _Bag, _AddType)
+AND
+DB_BOHQOL_BagTarget((GUIDSTRING)_Player, (GUIDSTRING)_Bag)
+AND
+IsItem(_Item, 1)
+AND
+GetDirectInventoryOwner(_Item, _Bag)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_EnterBag",
+    1
+)
+AND
+HasActiveStatus(
+    _Player,
+    "BOHQOL_AUTOSORT_ModeSafe",
+    1
+)
+THEN
+DebugBreak("BOHQOL_AUTOSORT: ENTER BAG + SAFE - SORTING ITEM");
+
+PROC_BOHQOL_AutoSortEnterSafe(
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_Player,
+    (GUIDSTRING)_Bag
+);
+
+
+// ============================================================
+// DISABLED
+//
+// No automatic execution rule is required.
+//
+// With BOHQOL_AUTOSORT_ModeDisabled active:
+//   BAG OPEN + FULL does not match.
+//   BAG OPEN + SAFE does not match.
+//   ENTER BAG + FULL does not match.
+//   ENTER BAG + SAFE does not match.
+//
+// Manual Bag Actions remain unaffected.
+// ============================================================
+EXITSECTION
+
+ENDEXITSECTION

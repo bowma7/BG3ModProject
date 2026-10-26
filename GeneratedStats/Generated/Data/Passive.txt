@@ -1,0 +1,15 @@
+new entry "BOHQOL_TestWeightless"
+type "PassiveData"
+data "Boosts" "Weight(-100);"
+
+new entry "BOHQOL_UsefulItem"
+type "PassiveData"
+data "DisplayName" "h743113c8g80c2g162bga17dgd33fa18e1f2d;1"
+data "Description" "hab1d57a9g9c78gcd49g7822g91a3f6a6a50e;1"
+
+new entry "BOHQOL_PartyQOL"
+type "PassiveData"
+data "DisplayName" "hef605f54g84e1g1006gfb91g6f69b6975182;2"
+data "Description" "h290a1abbgfdfeg9d8ag9ab2gc2f29d66cf0d;2"
+data "Boosts" "UnlockSpell(Target_BOHQOL_Longstrider);UnlockSpell(Shout_BOHQOL_FeatherFall);UnlockSpell(Target_BOHQOL_EnhancedLeap);UnlockSpell(Target_BOHQOL_RemovePartyBuff);UnlockSpell(Shout_BOHQOL_PartySpellController);UnlockSpell(Shout_BOHQOL_BagActions);UnlockSpell(Shout_BOHQOL_BagAction_ALL);UnlockSpell(Shout_BOHQOL_BagAction_Weapons);UnlockSpell(Shout_BOHQOL_BagAction_Armor);UnlockSpell(Shout_BOHQOL_BagAction_Accessories);UnlockSpell(Shout_BOHQOL_BagAction_Potions);UnlockSpell(Shout_BOHQOL_BagAction_Scrolls);UnlockSpell(Shout_BOHQOL_BagAction_Arrows);UnlockSpell(Shout_BOHQOL_BagAction_Throwables);UnlockSpell(Shout_BOHQOL_BagAction_Alchemy);UnlockSpell(Shout_BOHQOL_BagAction_Books);UnlockSpell(Shout_BOHQOL_BagAction_Keys);UnlockSpell(Shout_BOHQOL_BagAction_Important);UnlockSpell(Shout_BOHQOL_BagAction_Misc);UnlockSpell(Shout_BOHQOL_BagSettings);UnlockSpell(Shout_BOHQOL_Setting_SortMode);UnlockSpell(Shout_BOHQOL_Setting_RetrieveMode);UnlockSpell(Shout_BOHQOL_Setting_Smart);UnlockSpell(Shout_BOHQOL_Setting_FullSort);UnlockSpell(Shout_BOHQOL_Setting_SafeSort);UnlockSpell(Shout_BOHQOL_Setting_DisabledSort);UnlockSpell(Shout_BOHQOL_Setting_BagToCamp);UnlockSpell(Shout_BOHQOL_Setting_ItemsToCamp);UnlockSpell(Shout_BOHQOL_Setting_ResetReadHist);UnlockSpell(Shout_BOHQOL_Setting_AutoSortEnter);UnlockSpell(Shout_BOHQOL_Setting_AutoSortOpen);UnlockSpell(Shout_BOHQOL_Setting_Recover);"
+

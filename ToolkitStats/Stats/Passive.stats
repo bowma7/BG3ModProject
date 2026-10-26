@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stats stat_object_definition_id="3e76b74c-a5ae-4268-944a-aa9c31e2185e">
+  <stat_objects>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="3a0ecff8-4ff5-4da9-a70c-5bf3780d00a6" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_TestWeightless" />
+        <field name="Boosts" type="StringTableFieldDefinition" value="Weight(-100);" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="289b746e-cbf3-4554-b84f-c05b8244bc5f" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_UsefulItem" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="h743113c8g80c2g162bga17dgd33fa18e1f2d" version="1" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="hab1d57a9g9c78gcd49g7822g91a3f6a6a50e" version="1" />
+      </fields>
+    </stat_object>
+    <stat_object is_substat="false">
+      <fields>
+        <field name="UUID" type="IdTableFieldDefinition" value="805d4b71-cd4e-43c8-8eec-7020a4789bc2" />
+        <field name="Name" type="NameTableFieldDefinition" value="BOHQOL_PartyQOL" />
+        <field name="DisplayName" type="TranslatedStringTableFieldDefinition" handle="hef605f54g84e1g1006gfb91g6f69b6975182" version="2" />
+        <field name="Description" type="TranslatedStringTableFieldDefinition" handle="h290a1abbgfdfeg9d8ag9ab2gc2f29d66cf0d" version="2" />
+        <field name="Boosts" type="StringTableFieldDefinition" value="UnlockSpell(Target_BOHQOL_Longstrider);UnlockSpell(Shout_BOHQOL_FeatherFall);UnlockSpell(Target_BOHQOL_EnhancedLeap);UnlockSpell(Target_BOHQOL_RemovePartyBuff);UnlockSpell(Shout_BOHQOL_PartySpellController);UnlockSpell(Shout_BOHQOL_BagActions);UnlockSpell(Shout_BOHQOL_BagAction_ALL);UnlockSpell(Shout_BOHQOL_BagAction_Weapons);UnlockSpell(Shout_BOHQOL_BagAction_Armor);UnlockSpell(Shout_BOHQOL_BagAction_Accessories);UnlockSpell(Shout_BOHQOL_BagAction_Potions);UnlockSpell(Shout_BOHQOL_BagAction_Scrolls);UnlockSpell(Shout_BOHQOL_BagAction_Arrows);UnlockSpell(Shout_BOHQOL_BagAction_Throwables);UnlockSpell(Shout_BOHQOL_BagAction_Alchemy);UnlockSpell(Shout_BOHQOL_BagAction_Books);UnlockSpell(Shout_BOHQOL_BagAction_Keys);UnlockSpell(Shout_BOHQOL_BagAction_Important);UnlockSpell(Shout_BOHQOL_BagAction_Misc);UnlockSpell(Shout_BOHQOL_BagSettings);UnlockSpell(Shout_BOHQOL_Setting_SortMode);UnlockSpell(Shout_BOHQOL_Setting_RetrieveMode);UnlockSpell(Shout_BOHQOL_Setting_Smart);UnlockSpell(Shout_BOHQOL_Setting_FullSort);UnlockSpell(Shout_BOHQOL_Setting_SafeSort);UnlockSpell(Shout_BOHQOL_Setting_DisabledSort);UnlockSpell(Shout_BOHQOL_Setting_BagToCamp);UnlockSpell(Shout_BOHQOL_Setting_ItemsToCamp);UnlockSpell(Shout_BOHQOL_Setting_ResetReadHist);UnlockSpell(Shout_BOHQOL_Setting_AutoSortEnter);UnlockSpell(Shout_BOHQOL_Setting_AutoSortOpen);UnlockSpell(Shout_BOHQOL_Setting_Recover);" />
+      </fields>
+    </stat_object>
+  </stat_objects>
+</stats>

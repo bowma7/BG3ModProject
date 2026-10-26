@@ -1,0 +1,158 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// TEST 1 - DID LEVELGAMEPLAYREADY FIRE?
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+THEN
+DebugBreak("BOHQOL_PARTYQOL: LEVEL GAMEPLAY READY");
+
+
+// ============================================================
+// TEST 2 - DOES DB_PLAYERS CONTAIN ANYTHING?
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+THEN
+DebugBreak("BOHQOL_PARTYQOL: FOUND DB_PLAYER");
+
+
+// ============================================================
+// TEST 3 - TRY TO GRANT THE PASSIVE
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasPassive(_Player, "BOHQOL_PartyQOL", 0)
+THEN
+DebugBreak("BOHQOL_PARTYQOL: PLAYER MISSING PASSIVE - ADDING");
+AddPassive(_Player, "BOHQOL_PartyQOL");
+
+
+// ============================================================
+// TEST 4 - CONFIRM THE PASSIVE EXISTS
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasPassive(_Player, "BOHQOL_PartyQOL", 1)
+THEN
+DebugBreak("BOHQOL_PARTYQOL: PASSIVE CONFIRMED");
+
+
+// ============================================================
+// ACTION MODE - DEFAULT TO SORT
+//
+// Only applies Sort when the player currently has No
+// Action Mode status.
+//
+// Existing SORT     -> unchanged
+// Existing RETRIEVE -> unchanged
+// Neither           -> SORT
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "BOHQOL_ACTIONMODE_SORT", 0)
+AND
+HasActiveStatus(_Player, "BOHQOL_ACTIONMODE_RETRIEVE", 0)
+THEN
+DebugBreak("BOHQOL_ACTIONMODE: NO MODE FOUND - DEFAULTING TO SORT");
+ApplyStatus(_Player, "BOHQOL_ACTIONMODE_SORT", -1.0, 1);
+
+
+// ============================================================
+// ACTION MODE - CONFIRM SORT
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "BOHQOL_ACTIONMODE_SORT", 1)
+THEN
+DebugBreak("BOHQOL_ACTIONMODE: SORT ACTIVE");
+
+
+// ============================================================
+// ACTION MODE - CONFIRM RETRIEVE
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "BOHQOL_ACTIONMODE_RETRIEVE", 1)
+THEN
+DebugBreak("BOHQOL_ACTIONMODE: RETRIEVE ACTIVE");
+
+// ============================================================
+// Auto Sort MODE - DEFAULT FULL
+//
+// Only applies Full when the player currently has NEITHER
+// Action Mode status.
+//
+// Existing FULL     -> unchanged
+// Existing SAFE     -> unchanged
+// Existing DISABLED -> unchanged
+// None              -> FULL
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "BOHQOL_AUTOSORT_ModeFull", 0)
+AND
+HasActiveStatus(_Player, "BOHQOL_AUTOSORT_ModeSafe", 0)
+AND
+HasActiveStatus(_Player, "BOHQOL_AUTOSORT_ModeDisabled", 0)
+THEN
+DebugBreak("BOHQOL_AUTOSORT: NO MODE FOUND - DEFAULTING TO FULL");
+ApplyStatus(_Player, "BOHQOL_AUTOSORT_ModeFull", -1.0, 1);
+
+// ============================================================
+// Auto Sort Trigger - DEFAULT On Bag Open
+//
+// Only applies on Bag open when the player currently has NEITHER
+// Mode Trigger status.
+//
+// Existing Bag open     -> unchanged
+// Existing Item Added     -> unchanged
+// None              -> Bag Open
+// ============================================================
+
+IF
+LevelGameplayReady(_Level, _IsEditorMode)
+AND
+DB_Players(_Player)
+AND
+HasActiveStatus(_Player, "BOHQOL_AUTOSORT_BagOpen", 0)
+AND
+HasActiveStatus(_Player, "BOHQOL_AUTOSORT_EnterBag", 0)
+THEN
+DebugBreak("BOHQOL_AUTOSORT Trigger: NO MODE FOUND - DEFAULTING TO On Bag Open");
+ApplyStatus(_Player, "BOHQOL_AUTOSORT_BagOpen", -1.0, 1);
+EXITSECTION
+
+ENDEXITSECTION

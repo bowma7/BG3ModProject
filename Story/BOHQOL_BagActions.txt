@@ -1,0 +1,641 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// BAG ACTIONS
+//
+// This file determines WHAT manual action the player requested.
+//
+// Target ensurance/cache belongs to BOHQOL_BagTargets.
+// Classification/policy/movement belongs to BOHQOL_SortWeapons.
+//
+// Manual actions call the final public action entry points directly.
+// They are intentionally independent of FULL / SAFE / DISABLED
+// automatic sort mode.
+// ============================================================
+
+
+// ============================================================
+// BAG ACTION: ALL - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_All",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortAll((GUIDSTRING)_Caster);
+
+
+// ============================================================
+// BAG ACTION: WEAPONS - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Weapons",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortWeapons((GUIDSTRING)_Caster);
+
+
+// ============================================================
+// BAG ACTION: ALL - RETRIEVE MODE
+//
+// Calls the Retrieve All orchestrator.
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_All",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveAll(
+    (GUIDSTRING)_Caster
+);
+
+// ============================================================
+// BAG ACTION: ARMOR - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Armor",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortArmor(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: ACCESSORIES - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Accessories",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortAccessories(
+    (GUIDSTRING)_Caster
+);
+
+// ============================================================
+// BAG ACTION: POTIONS - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Potions",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortPotions(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: SCROLLS - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Scrolls",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortScrolls(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: ARROWS - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Arrows",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortArrows(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: THROWABLES - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Throwables",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortThrowables(
+    (GUIDSTRING)_Caster
+);
+
+// ============================================================
+// BAG ACTION: ALCHEMY - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Alchemy",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortAlchemy(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: BOOKS - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Books",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortBooks(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: KEYS - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Keys",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortKeys(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: QUEST / IMPORTANT - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Important",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortQuest(
+    (GUIDSTRING)_Caster
+);
+
+// ============================================================
+// BAG ACTION: MISC - SORT MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Misc",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_SORT",
+    1
+)
+THEN
+PROC_BOHQOL_SortMisc(
+    (GUIDSTRING)_Caster
+);
+
+// ============================================================
+// BAG ACTION: WEAPONS - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Weapons",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveWeapons(
+    (GUIDSTRING)_Caster
+);
+
+// ============================================================
+// BAG ACTION: ARMOR - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Armor",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveArmor(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: ACCESSORIES - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Accessories",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveAccessories(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: POTIONS - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Potions",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrievePotions(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: SCROLLS - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Scrolls",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveScrolls(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: ARROWS - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Arrows",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveArrows(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: THROWABLES - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Throwables",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveThrowables(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: ALCHEMY - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Alchemy",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_PrepareRetrieveAlchemy(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: BOOKS - RETRIEVE MODE
+//
+// Retrieves BOTH Unread and Read books.
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Books",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveBooks(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: KEYS - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Keys",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_PrepareRetrieveKeys(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: QUEST / IMPORTANT - RETRIEVE MODE
+//
+// IMPORTANT:
+// Actual spell ID is _Important, not _Quest.
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Important",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveQuest(
+    (GUIDSTRING)_Caster
+);
+
+
+// ============================================================
+// BAG ACTION: MISC - RETRIEVE MODE
+// ============================================================
+
+IF
+UsingSpell(
+    _Caster,
+    "Shout_BOHQOL_BagAction_Misc",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+AND
+HasActiveStatus(
+    _Caster,
+    "BOHQOL_ACTIONMODE_RETRIEVE",
+    1
+)
+THEN
+PROC_BOHQOL_RetrieveMisc(
+    (GUIDSTRING)_Caster
+);
+EXITSECTION
+
+ENDEXITSECTION

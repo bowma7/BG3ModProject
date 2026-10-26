@@ -1,0 +1,147 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+// ============================================================
+// BOOK / NOTE READ STATE - PERSISTENT
+//
+// Larian BOOK tag:
+// BOOK_8a8e253a-c081-45a1-9fa2-91b6901dc568
+//
+// Read history is persisted by Root Template in:
+//     DB_BOHQOL_ReadBookTemplate(_ItemTemplate)
+//
+// Weight handling remains in BOHQOL_Weightless.
+// ============================================================
+
+
+// ============================================================
+// BOOK TAG DIAGNOSTIC
+// ============================================================
+
+IF
+TemplateUseFinished(
+    _Character,
+    _ItemTemplate,
+    _Item,
+    1
+)
+AND
+IsTagged(
+    _Item,
+    (TAG)BOOK_8a8e253a-c081-45a1-9fa2-91b6901dc568,
+    1
+)
+THEN
+DB_BOHQOL_BookTagDiagnostic(
+    (GUIDSTRING)_Character,
+    (GUIDSTRING)_Item,
+    (GUIDSTRING)_ItemTemplate
+);
+
+
+// ============================================================
+// RECORD PERSISTENT READ HISTORY
+// ============================================================
+
+IF
+TemplateUseFinished(
+    _Character,
+    _ItemTemplate,
+    _Item,
+    1
+)
+AND
+IsTagged(
+    _Item,
+    (TAG)BOOK_8a8e253a-c081-45a1-9fa2-91b6901dc568,
+    1
+)
+THEN
+DB_BOHQOL_ReadBookTemplate(
+    (GUIDSTRING)_ItemTemplate
+);
+
+
+// ============================================================
+// BOOK / NOTE -> READ BOOKS
+// ============================================================
+
+IF
+TemplateUseFinished(
+    _Character,
+    _ItemTemplate,
+    _Item,
+    1
+)
+AND
+IsTagged(
+    _Item,
+    (TAG)BOOK_8a8e253a-c081-45a1-9fa2-91b6901dc568,
+    1
+)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_BagOfHolding_568c5b36-5f4f-4f47-bcb9-2c8fdbf65d90,
+    _Character,
+    _Bag
+)
+AND
+GetDirectInventoryOwner(
+    _Bag,
+    _Character
+)
+AND
+GetItemByTemplateInInventory(
+    (ITEMROOT)BOHQOL_Chest_Read-Books_c41e30c4-db53-42b9-8725-04cc5c58346a,
+    _Bag,
+    _ReadBooks
+)
+AND
+GetStackAmount(
+    (ITEM)_Item,
+    _Amount,
+    _
+)
+THEN
+ToInventory(
+    _Item,
+    _ReadBooks,
+    _Amount,
+    0,
+    0
+);
+
+
+// ============================================================
+// RESET READ HISTORY
+//
+// Runtime spell ID follows the same proven pattern used by the
+// working BOHQOL Bag Action child spells:
+//
+// Stats entry:
+//     BOHQOL_Setting_ResetReadHist
+//
+// UsingSpell runtime ID:
+//     Shout_BOHQOL_Setting_ResetReadHist
+// ============================================================
+
+IF
+UsingSpell(
+    _Character,
+    "Shout_BOHQOL_Setting_ResetReadHist",
+    _SpellType,
+    _SpellElement,
+    _StoryActionID
+)
+THEN
+SysClear(
+    "DB_BOHQOL_ReadBookTemplate",
+    1
+);
+
+DebugBreak("BOHQOL RESET READ HISTORY: SysClear CALLED");
+EXITSECTION
+
+ENDEXITSECTION
